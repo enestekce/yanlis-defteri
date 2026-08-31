@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YKS Silici - Yanlışlarım</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+<h1>Yanlışlarım</h1>
+
+<p class="slogan">
+Eklediğin yanlış ve boş sorular
+</p>
+
+
+<div id="liste"></div>
+
+
+<button class="add" onclick="window.location.href='yanlis-ekle.html'">
++ Yeni Kayıt
+</button>
+
+
+<button onclick="window.location.href='index.html'">
+Ana Sayfa
+</button>
+
+
+</div>
+
+
+
+<script>
+
+
+let kayitlar = JSON.parse(localStorage.getItem("yanlislar")) || [];
+
+let liste = document.getElementById("liste");
+
+
+
+if(kayitlar.length === 0){
+
+liste.innerHTML = `
+
+<div class="user-box">
+
+<h2>Kayıt yok</h2>
+
+<p>Henüz yanlış veya boş soru eklemedin.</p>
+
+</div>
+
+`;
+
+}
+
+
+
+kayitlar.forEach((soru)=>{
+
+
+liste.innerHTML += `
+
+<div class="user-box">
+
+
+<h2>${soru.ders}</h2>
+
+
+<p><b>Sınav:</b> ${soru.sinav}</p>
+
+<p><b>Kaynak:</b> ${soru.kaynak}</p>
+
+<p><b>Durum:</b> ${soru.durum}</p>
+
+<p><b>Konu:</b> ${soru.konu}</p>
+
+<p><b>Sebep:</b> ${soru.sebep}</p>
+
+<p><b>Not:</b> ${soru.not}</p>
+
+
+</div>
+
+`;
+
+
+});
+
+
+</script>
+
+
+</body>
+
+</html>
