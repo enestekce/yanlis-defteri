@@ -22,17 +22,15 @@
 <h1>📚 Yanlışlarım</h1>
 
 <p class="subtitle">
-Geçmiş kayıtlarını incele
+Kayıtlarını kontrol et
 </p>
-
 
 
 <div id="liste"></div>
 
 
-
 <button onclick="window.location.href='yanlis-ekle.html'">
-➕ Yeni Kayıt
+➕ Yeni Kayıt Ekle
 </button>
 
 
@@ -48,6 +46,7 @@ Geçmiş kayıtlarını incele
 <script src="script.js"></script>
 
 
+
 <script>
 
 
@@ -60,29 +59,27 @@ let kayitlar = kayitGetir();
 
 if(kayitlar.length === 0){
 
-
 liste.innerHTML = `
 
 <div class="box">
 
-<h2>Kayıt yok</h2>
+<h2>Henüz kayıt yok</h2>
 
-<p>Henüz yanlış eklemedin.</p>
+<p>Yanlışlarını eklemeye başla.</p>
 
 </div>
 
 `;
 
-
-
 }
 
 
 
-kayitlar.forEach((x,index)=>{
+kayitlar.forEach(function(x,index){
 
 
 liste.innerHTML += `
+
 
 <div class="card">
 
@@ -105,27 +102,27 @@ liste.innerHTML += `
 
 
 ${x.foto ? 
-`
-<img src="${x.foto}">
-`
+`<img src="${x.foto}">`
 :
 ""
 }
 
 
 
-<button onclick="sil(${index})">
+<br>
+
+
+<button onclick="kayitSil(${index})">
 
 🗑️ Kaydı Sil
 
 </button>
 
 
-
 </div>
 
-`;
 
+`;
 
 
 });
@@ -134,11 +131,10 @@ ${x.foto ?
 
 
 
-function sil(index){
+function kayitSil(index){
 
 
 let veriler = kayitGetir();
-
 
 
 veriler.splice(index,1);
@@ -158,9 +154,7 @@ JSON.stringify(veriler)
 alert("Kayıt silindi");
 
 
-
-location.reload();
-
+window.location.reload();
 
 
 }
