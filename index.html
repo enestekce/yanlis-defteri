@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>YKS Silici</title>
-
 <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
@@ -16,21 +12,20 @@
 <div class="container">
 
 <h1>YKS Silici</h1>
-
-<p class="slogan">
-Yanlışlarını analiz et, eksiklerini kapat.
+<p class="subtitle">
+Yanlışlarını analiz et, netlerini yükselt.
 </p>
 
 
-<div class="user-box" id="userBox">
+<div id="userSelect" class="box">
 
-<h2>Kimsin?</h2>
+<h2>Kullanıcı seç</h2>
 
-<button onclick="selectUser('Enes')">
+<button onclick="giris('Enes')">
 👤 Enes
 </button>
 
-<button onclick="selectUser('Şahan')">
+<button onclick="giris('Şahan')">
 👤 Şahan
 </button>
 
@@ -38,35 +33,56 @@ Yanlışlarını analiz et, eksiklerini kapat.
 
 
 
-<div id="panel" class="hidden">
+<div id="mainPanel" class="hidden">
 
-<h2 id="welcome"></h2>
-
-
-<div class="cards">
+<h2 id="hosgeldin"></h2>
 
 
-<div class="card">
-📘 TYT Deneme
+<div class="stats">
+
+<div>
+Toplam kayıt
+<br>
+<b id="toplam">0</b>
 </div>
 
 
-<div class="card">
-📗 AYT Deneme
+<div>
+Yanlış
+<br>
+<b id="yanlis">0</b>
 </div>
 
 
-<div class="card">
-📙 Test Kitabı
+<div>
+Boş
+<br>
+<b id="bos">0</b>
+</div>
+
 </div>
 
 
-</div>
+
+<div class="menu">
 
 
-<button class="add" onclick="window.location.href='yanlis-ekle.html'">
-+ Yeni Yanlış Ekle
+<button onclick="git('yanlis-ekle.html')">
+➕ Yeni Soru Ekle
 </button>
+
+
+<button onclick="git('yanlislarim.html')">
+📚 Yanlışlarım
+</button>
+
+
+<button onclick="git('istatistik.html')">
+📊 İstatistik
+</button>
+
+
+</div>
 
 
 </div>
