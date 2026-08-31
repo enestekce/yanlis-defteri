@@ -22,8 +22,9 @@
 <h1>📚 Yanlışlarım</h1>
 
 <p class="subtitle">
-Geçmiş hatalarını tekrar incele.
+Geçmiş kayıtlarını incele
 </p>
+
 
 
 <div id="liste"></div>
@@ -40,7 +41,6 @@ Geçmiş hatalarını tekrar incele.
 </button>
 
 
-
 </div>
 
 
@@ -51,28 +51,23 @@ Geçmiş hatalarını tekrar incele.
 <script>
 
 
-let liste =
-document.getElementById("liste");
+let liste = document.getElementById("liste");
+
+
+let kayitlar = kayitGetir();
 
 
 
-let kayitlar =
-kayitGetir();
+if(kayitlar.length === 0){
 
 
-
-if(kayitlar.length===0){
-
-
-liste.innerHTML=`
+liste.innerHTML = `
 
 <div class="box">
 
-<h2>Kayıt bulunamadı</h2>
+<h2>Kayıt yok</h2>
 
-<p>
-Henüz yanlış eklememişsin.
-</p>
+<p>Henüz yanlış eklemedin.</p>
 
 </div>
 
@@ -84,13 +79,10 @@ Henüz yanlış eklememişsin.
 
 
 
-
-
-kayitlar.reverse().forEach((x)=>{
+kayitlar.forEach((x,index)=>{
 
 
 liste.innerHTML += `
-
 
 <div class="card">
 
@@ -98,39 +90,17 @@ liste.innerHTML += `
 <h2>${x.ders}</h2>
 
 
-<p>
-<b>Sınav:</b> ${x.sinav}
-</p>
+<p><b>Sınav:</b> ${x.sinav}</p>
 
+<p><b>Kaynak:</b> ${x.kaynak}</p>
 
-<p>
-<b>Kaynak:</b> ${x.kaynak}
-</p>
+<p><b>Konu:</b> ${x.konu}</p>
 
+<p><b>Durum:</b> ${x.durum}</p>
 
+<p><b>Sebep:</b> ${x.sebep}</p>
 
-<p>
-<b>Konu:</b> ${x.konu}
-</p>
-
-
-
-<p>
-<b>Durum:</b> ${x.durum}
-</p>
-
-
-
-<p>
-<b>Hata sebebi:</b> ${x.sebep}
-</p>
-
-
-
-<p>
-<b>Not:</b> ${x.not}
-</p>
-
+<p><b>Not:</b> ${x.not}</p>
 
 
 
@@ -144,14 +114,56 @@ ${x.foto ?
 
 
 
-</div>
+<button onclick="sil(${index})">
 
+🗑️ Kaydı Sil
+
+</button>
+
+
+
+</div>
 
 `;
 
 
 
 });
+
+
+
+
+
+function sil(index){
+
+
+let veriler = kayitGetir();
+
+
+
+veriler.splice(index,1);
+
+
+
+localStorage.setItem(
+
+"kayitlar_" + aktifKullanici,
+
+JSON.stringify(veriler)
+
+);
+
+
+
+alert("Kayıt silindi");
+
+
+
+location.reload();
+
+
+
+}
 
 
 
