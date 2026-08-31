@@ -18,87 +18,141 @@
 
 <div class="container">
 
-<h1>Yanlışlarım</h1>
 
-<p class="slogan">
-Eklediğin yanlış ve boş sorular
+<h1>📚 Yanlışlarım</h1>
+
+<p class="subtitle">
+Geçmiş hatalarını tekrar incele.
 </p>
 
 
 <div id="liste"></div>
 
 
-<button class="add" onclick="window.location.href='yanlis-ekle.html'">
-+ Yeni Kayıt
+
+<button onclick="window.location.href='yanlis-ekle.html'">
+➕ Yeni Kayıt
 </button>
 
 
 <button onclick="window.location.href='index.html'">
-Ana Sayfa
+🏠 Ana Sayfa
 </button>
+
 
 
 </div>
 
+
+
+<script src="script.js"></script>
 
 
 <script>
 
 
-let kayitlar = JSON.parse(localStorage.getItem("yanlislar")) || [];
-
-let liste = document.getElementById("liste");
-
+let liste =
+document.getElementById("liste");
 
 
-if(kayitlar.length === 0){
 
-liste.innerHTML = `
+let kayitlar =
+kayitGetir();
 
-<div class="user-box">
 
-<h2>Kayıt yok</h2>
 
-<p>Henüz yanlış veya boş soru eklemedin.</p>
+if(kayitlar.length===0){
+
+
+liste.innerHTML=`
+
+<div class="box">
+
+<h2>Kayıt bulunamadı</h2>
+
+<p>
+Henüz yanlış eklememişsin.
+</p>
 
 </div>
 
 `;
+
+
 
 }
 
 
 
-kayitlar.forEach((soru)=>{
+
+
+kayitlar.reverse().forEach((x)=>{
 
 
 liste.innerHTML += `
 
-<div class="user-box">
+
+<div class="card">
 
 
-<h2>${soru.ders}</h2>
+<h2>${x.ders}</h2>
 
 
-<p><b>Sınav:</b> ${soru.sinav}</p>
+<p>
+<b>Sınav:</b> ${x.sinav}
+</p>
 
-<p><b>Kaynak:</b> ${soru.kaynak}</p>
 
-<p><b>Durum:</b> ${soru.durum}</p>
+<p>
+<b>Kaynak:</b> ${x.kaynak}
+</p>
 
-<p><b>Konu:</b> ${soru.konu}</p>
 
-<p><b>Sebep:</b> ${soru.sebep}</p>
 
-<p><b>Not:</b> ${soru.not}</p>
+<p>
+<b>Konu:</b> ${x.konu}
+</p>
+
+
+
+<p>
+<b>Durum:</b> ${x.durum}
+</p>
+
+
+
+<p>
+<b>Hata sebebi:</b> ${x.sebep}
+</p>
+
+
+
+<p>
+<b>Not:</b> ${x.not}
+</p>
+
+
+
+
+${x.foto ? 
+`
+<img src="${x.foto}">
+`
+:
+""
+}
+
 
 
 </div>
 
+
 `;
 
 
+
 });
+
 
 
 </script>
