@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YKS Silici - İstatistik</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>📊 İstatistik</h1>
+
+<p class="subtitle">
+Çalışma analizini gör.
+</p>
+
+
+
+<div class="box" id="sonuc">
+
+
+</div>
+
+
+
+<button onclick="window.location.href='index.html'">
+🏠 Ana Sayfa
+</button>
+
+
+</div>
+
+
+
+
+<script src="script.js"></script>
+
+
+<script>
+
+
+let kayitlar = kayitGetir();
+
+
+
+let toplam = kayitlar.length;
+
+
+let yanlis =
+kayitlar.filter(x=>x.durum=="Yanlış yaptım").length;
+
+
+let bos =
+kayitlar.filter(x=>x.durum=="Boş bıraktım").length;
+
+
+
+
+let dersler={};
+
+
+let sebepler={};
+
+
+
+kayitlar.forEach(x=>{
+
+
+dersler[x.ders]=(dersler[x.ders]||0)+1;
+
+
+sebepler[x.sebep]=(sebepler[x.sebep]||0)+1;
+
+
+});
+
+
+
+
+let dersMetin="";
+
+
+for(let ders in dersler){
+
+dersMetin +=
+`
+<p>
+<b>${ders}</b> : ${dersler[ders]} kayıt
+</p>
+`;
+
+}
+
+
+
+let sebepMetin="";
+
+
+for(let sebep in sebepler){
+
+sebepMetin +=
+`
+<p>
+<b>${sebep}</b> : ${sebepler[sebep]} kez
+</p>
+`;
+
+}
+
+
+
+
+document.getElementById("sonuc").innerHTML=`
+
+<h2>Genel</h2>
+
+<p>
+Toplam kayıt: <b>${toplam}</b>
+</p>
+
+<p>
+❌ Yanlış: <b>${yanlis}</b>
+</p>
+
+<p>
+⭕ Boş: <b>${bos}</b>
+</p>
+
+
+
+<hr>
+
+
+<h2>Ders Dağılımı</h2>
+
+${dersMetin || "Henüz veri yok"}
+
+
+
+<hr>
+
+
+<h2>Hata Sebepleri</h2>
+
+${sebepMetin || "Henüz veri yok"}
+
+
+
+`;
+
+
+
+</script>
+
+
+</body>
+
+</html>
