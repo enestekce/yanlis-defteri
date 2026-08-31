@@ -1,13 +1,13 @@
 *{
     box-sizing:border-box;
-    font-family: "Segoe UI", Arial, sans-serif;
+    font-family:"Segoe UI", Arial, sans-serif;
 }
 
 
 body{
     margin:0;
     min-height:100vh;
-    background:#0b1120;
+    background:#08111f;
     color:white;
     display:flex;
     justify-content:center;
@@ -23,43 +23,43 @@ body{
 
 
 h1{
-    font-size:48px;
+    font-size:45px;
     margin-bottom:10px;
 }
 
 
-.slogan{
+.subtitle{
     color:#94a3b8;
     font-size:18px;
-    margin-bottom:40px;
+    margin-bottom:35px;
 }
 
 
-.user-box{
+.box{
     background:#111827;
-    padding:35px;
+    padding:30px;
     border-radius:25px;
-    border:1px solid #1e293b;
+    border:1px solid #263449;
 }
 
 
 button{
-    width:80%;
-    max-width:300px;
+    width:90%;
+    max-width:350px;
     padding:16px;
     margin:10px;
     border:none;
     border-radius:15px;
     background:#2563eb;
     color:white;
-    font-size:18px;
+    font-size:17px;
     cursor:pointer;
     transition:.3s;
 }
 
 
 button:hover{
-    transform:scale(1.03);
+    transform:translateY(-3px);
 }
 
 
@@ -68,27 +68,93 @@ button:hover{
 }
 
 
-.cards{
+
+.stats{
+
     display:flex;
-    gap:20px;
-    flex-wrap:wrap;
+    gap:15px;
     justify-content:center;
-    margin-top:30px;
+    flex-wrap:wrap;
+    margin:25px 0;
+
 }
+
+
+.stats div{
+
+    background:#1e293b;
+    padding:20px;
+    border-radius:20px;
+    width:180px;
+
+}
+
+
+
+.menu button{
+
+    background:#16a34a;
+
+}
+
+
+
+input,
+select,
+textarea{
+
+    width:100%;
+    padding:14px;
+    margin-top:8px;
+    border-radius:12px;
+    border:none;
+
+    background:#0f172a;
+    color:white;
+
+    font-size:16px;
+
+}
+
+
+
+textarea{
+
+    min-height:120px;
+    resize:none;
+
+}
+
+
+
+label{
+
+    display:block;
+    text-align:left;
+    margin-top:15px;
+    color:#cbd5e1;
+
+}
+
 
 
 .card{
+
     background:#1e293b;
-    padding:25px;
+    padding:20px;
     border-radius:20px;
-    width:200px;
-    cursor:pointer;
+    margin:15px 0;
+    text-align:left;
+
 }
 
 
-.add{
-    margin-top:30px;
-    background:#16a34a;
+
+img{
+
+    max-width:100%;
+    border-radius:15px;
+
 }
 
 
@@ -96,18 +162,14 @@ button:hover{
 @media(max-width:600px){
 
     h1{
-        font-size:36px;
+        font-size:35px;
     }
 
 
-    .cards{
-        flex-direction:column;
-        align-items:center;
-    }
+    .stats div{
 
+        width:100%;
 
-    .card{
-        width:90%;
     }
 
 }
