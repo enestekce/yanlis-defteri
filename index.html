@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YKS Silici</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>YKS Silici</h1>
+
+    <p class="slogan">
+        Yanlışlarını analiz et, eksiklerini kapat.
+    </p>
+
+
+    <div class="user-box">
+
+        <h2>Kimsin?</h2>
+
+        <button onclick="selectUser('Enes')">
+            👤 Enes
+        </button>
+
+
+        <button onclick="selectUser('Şahan')">
+            👤 Şahan
+        </button>
+
+    </div>
+
+
+    <div id="panel" class="hidden">
+
+        <h2 id="welcome"></h2>
+
+        <div class="cards">
+
+            <div class="card">
+                📘 TYT Deneme
+            </div>
+
+            <div class="card">
+                📗 AYT Deneme
+            </div>
+
+            <div class="card">
+                📙 Test Kitabı
+            </div>
+
+        </div>
+
+
+        <button class="add">
+            + Yeni Yanlış Ekle
+        </button>
+
+
+    </div>
+
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
