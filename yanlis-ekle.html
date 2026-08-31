@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YKS Silici - Yanlış Ekle</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Yeni Kayıt</h1>
+
+<p class="slogan">
+Yanlışlarını ve boşlarını arşivle.
+</p>
+
+
+<div class="user-box">
+
+
+<label>Sınav Türü</label>
+
+<select id="sinav">
+
+<option>TYT Deneme</option>
+<option>AYT Deneme</option>
+<option>Test Kitabı</option>
+
+</select>
+
+
+
+<label>Kaynak Adı</label>
+
+<input id="kaynak" 
+placeholder="Örn: Bilgi Sarmal TYT Matematik">
+
+
+
+<label>Durum</label>
+
+<select id="durum">
+
+<option>Yanlış yaptım</option>
+<option>Boş bıraktım</option>
+
+</select>
+
+
+
+<label>Ders</label>
+
+<select id="ders">
+
+<option>Türkçe</option>
+<option>Matematik</option>
+<option>Fizik</option>
+<option>Kimya</option>
+<option>Biyoloji</option>
+
+</select>
+
+
+
+<label>Konu</label>
+
+<input id="konu"
+placeholder="Örn: Problemler">
+
+
+
+<label>Yanlış Sebebi</label>
+
+<select id="sebep">
+
+<option>Bilgi eksikliği</option>
+<option>Dikkat hatası</option>
+<option>İşlem hatası</option>
+<option>Süre problemi</option>
+<option>Soru tarzına yabancılık</option>
+
+</select>
+
+
+
+<label>Kendime Not</label>
+
+<textarea id="not"
+placeholder="Bu sorudan ne öğrendim?"></textarea>
+
+
+
+<button onclick="kaydet()">
+Kaydet
+</button>
+
+
+</div>
+
+
+</div>
+
+
+<script>
+
+function kaydet(){
+
+
+let soru = {
+
+sinav: document.getElementById("sinav").value,
+
+kaynak: document.getElementById("kaynak").value,
+
+durum: document.getElementById("durum").value,
+
+ders: document.getElementById("ders").value,
+
+konu: document.getElementById("konu").value,
+
+sebep: document.getElementById("sebep").value,
+
+not: document.getElementById("not").value
+
+};
+
+
+
+let eski = JSON.parse(localStorage.getItem("yanlislar")) || [];
+
+
+eski.push(soru);
+
+
+localStorage.setItem(
+"yanlislar",
+JSON.stringify(eski)
+);
+
+
+alert("Kayıt eklendi");
+
+
+window.location.href="index.html";
+
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
