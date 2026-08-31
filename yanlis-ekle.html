@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>YKS Silici - Yanlış Ekle</title>
+<title>YKS Silici - Yeni Kayıt</title>
 
 <link rel="stylesheet" href="style.css">
 
 </head>
 
+
 <body>
+
 
 <div class="container">
 
-<h1>Yeni Kayıt</h1>
 
-<p class="slogan">
-Yanlışlarını ve boşlarını arşivle.
+<h1>Yeni Soru</h1>
+
+<p class="subtitle">
+Hatanı kaydet, tekrar etme.
 </p>
 
 
-<div class="user-box">
+<div class="box">
 
 
 <label>Sınav Türü</label>
@@ -37,10 +41,9 @@ Yanlışlarını ve boşlarını arşivle.
 
 
 
-<label>Kaynak Adı</label>
+<label>Kaynak</label>
 
-<input id="kaynak" 
-placeholder="Örn: Bilgi Sarmal TYT Matematik">
+<input id="kaynak" placeholder="Örn: Bilgi Sarmal">
 
 
 
@@ -71,12 +74,11 @@ placeholder="Örn: Bilgi Sarmal TYT Matematik">
 
 <label>Konu</label>
 
-<input id="konu"
-placeholder="Örn: Problemler">
+<input id="konu" placeholder="Örn: Problemler">
 
 
 
-<label>Yanlış Sebebi</label>
+<label>Hata Sebebi</label>
 
 <select id="sebep">
 
@@ -84,7 +86,7 @@ placeholder="Örn: Problemler">
 <option>Dikkat hatası</option>
 <option>İşlem hatası</option>
 <option>Süre problemi</option>
-<option>Soru tarzına yabancılık</option>
+<option>Soru tarzı eksikliği</option>
 
 </select>
 
@@ -97,8 +99,21 @@ placeholder="Bu sorudan ne öğrendim?"></textarea>
 
 
 
+<label>
+📷 Soru Fotoğrafı
+</label>
+
+<input type="file" id="foto" accept="image/*">
+
+
+
 <button onclick="kaydet()">
 Kaydet
+</button>
+
+
+<button onclick="window.location.href='index.html'">
+Geri Dön
 </button>
 
 
@@ -108,50 +123,108 @@ Kaydet
 </div>
 
 
+
+
+<script src="script.js"></script>
+
+
 <script>
+
+
+let fotoBase64="";
+
+
+
+document
+.getElementById("foto")
+.addEventListener("change",function(e){
+
+
+let dosya=e.target.files[0];
+
+
+if(dosya){
+
+
+let okuyucu=new FileReader();
+
+
+okuyucu.onload=function(){
+
+fotoBase64=okuyucu.result;
+
+}
+
+
+okuyucu.readAsDataURL(dosya);
+
+
+}
+
+
+});
+
+
+
+
+
 
 function kaydet(){
 
 
-let soru = {
+let veri={
 
-sinav: document.getElementById("sinav").value,
 
-kaynak: document.getElementById("kaynak").value,
+sinav:
+document.getElementById("sinav").value,
 
-durum: document.getElementById("durum").value,
 
-ders: document.getElementById("ders").value,
+kaynak:
+document.getElementById("kaynak").value,
 
-konu: document.getElementById("konu").value,
 
-sebep: document.getElementById("sebep").value,
+durum:
+document.getElementById("durum").value,
 
-not: document.getElementById("not").value
+
+ders:
+document.getElementById("ders").value,
+
+
+konu:
+document.getElementById("konu").value,
+
+
+sebep:
+document.getElementById("sebep").value,
+
+
+not:
+document.getElementById("not").value,
+
+
+foto:
+fotoBase64
+
 
 };
 
 
 
-let eski = JSON.parse(localStorage.getItem("yanlislar")) || [];
 
 
-eski.push(soru);
+kayitKaydet(veri);
 
-
-localStorage.setItem(
-"yanlislar",
-JSON.stringify(eski)
-);
 
 
 alert("Kayıt eklendi");
 
 
-window.location.href="index.html";
+window.location.href="yanlislarim.html";
 
 
 }
+
 
 
 </script>
