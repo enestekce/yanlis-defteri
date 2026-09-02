@@ -1,9 +1,6 @@
 let aktifKullanici = "";
 
 
-
-// kullanıcı giriş
-
 function giris(isim){
 
     aktifKullanici = isim;
@@ -26,8 +23,6 @@ function giris(isim){
 
 
 
-// sayfa değiştirme
-
 function git(sayfa){
 
     window.location.href = sayfa;
@@ -35,8 +30,6 @@ function git(sayfa){
 }
 
 
-
-// kayıtları getir
 
 function kayitGetir(){
 
@@ -48,22 +41,17 @@ function kayitGetir(){
     }
 
 
-    let veriler =
-    JSON.parse(localStorage.getItem("kayitlar_" + aktifKullanici)) || [];
-
-
-    return veriler;
+    return JSON.parse(
+        localStorage.getItem("kayitlar_" + aktifKullanici)
+    ) || [];
 
 }
 
 
 
-// kayıt kaydet
-
 function kayitKaydet(kayit){
 
     let liste = kayitGetir();
-
 
     liste.push(kayit);
 
@@ -76,8 +64,6 @@ function kayitKaydet(kayit){
 }
 
 
-
-// ana ekran sayıları
 
 function istatistikGuncelle(){
 
@@ -98,24 +84,82 @@ function istatistikGuncelle(){
 
     if(document.getElementById("toplam")){
 
-        document.getElementById("toplam").innerHTML =
-        toplam;
 
+        toplam.innerHTML=toplam;
 
-        document.getElementById("yanlis").innerHTML =
-        yanlis;
-
-
-        document.getElementById("bos").innerHTML =
-        bos;
 
     }
+
+
+    if(document.getElementById("yanlis")){
+
+        document.getElementById("yanlis").innerHTML=yanlis;
+
+    }
+
+
+    if(document.getElementById("bos")){
+
+        document.getElementById("bos").innerHTML=bos;
+
+    }
+
 
 }
 
 
 
-// sayfa açılınca kullanıcıyı hatırla
+function kayitSil(index){
+
+
+let veriler = kayitGetir();
+
+
+veriler.splice(index,1);
+
+
+localStorage.setItem(
+
+"kayitlar_" + aktifKullanici,
+
+JSON.stringify(veriler)
+
+);
+
+
+location.reload();
+
+
+}
+
+
+
+function tekrarYapildi(index){
+
+
+let veriler=kayitGetir();
+
+
+veriler[index].tekrar =
+!veriler[index].tekrar;
+
+
+localStorage.setItem(
+
+"kayitlar_" + aktifKullanici,
+
+JSON.stringify(veriler)
+
+);
+
+
+location.reload();
+
+
+}
+
+
+
 
 window.onload=function(){
 
@@ -141,6 +185,7 @@ document.getElementById("hosgeldin").innerHTML =
 
 
 istatistikGuncelle();
+
 
 }
 
