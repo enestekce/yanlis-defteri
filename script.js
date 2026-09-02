@@ -270,11 +270,10 @@ window.onload = function(){
 
 
         istatistikGuncelle();
+gorevleriGoster();
 
-
-    }
-    
-    };
+       }
+};
 
 
 function hedefEkleAc(){
@@ -308,5 +307,133 @@ function hedefKaydet(){
     document.getElementById("hedefYazi").innerHTML = hedef;
 
     alert("🎯 Günlük hedef kaydedildi");
+
+}
+function gorevEkleAc(){
+
+let alan = document.getElementById("gorevEkleAlan");
+
+if(alan.style.display == "none" || alan.style.display == ""){
+
+alan.style.display = "block";
+
+}
+else{
+
+alan.style.display = "none";
+
+}
+
+}
+
+
+function gorevKaydet(){
+
+let ders = document.getElementById("dersAdi").value;
+let tur = document.getElementById("gorevTuru").value;
+let hedef = document.getElementById("hedefMiktar").value;
+let link = document.getElementById("youtubeLink").value;
+
+
+let gorevler =
+JSON.parse(localStorage.getItem("gorevler_" + aktifKullanici)) || [];
+
+gorevler.push({
+
+ders:ders,
+tur:tur,
+hedef:hedef,
+tamamlanan:0,
+link:link
+
+});
+
+
+localStorage.setItem(
+"gorevler_" + aktifKullanici,
+JSON.stringify(gorevler)
+);
+
+alert("✅ Görev eklendi");
+
+
+gorevleriGoster();
+
+}
+function gorevleriGoster(){
+
+let liste = document.getElementById("gorevListesi");
+
+if(!liste) return;
+
+
+let gorevler =
+JSON.parse(localStorage.getItem("gorevler_" + aktifKullanici)) || [];
+
+
+liste.innerHTML="";
+
+
+gorevler.forEach((gorev,index)=>{
+
+
+liste.innerHTML += `
+
+<div class="box">
+
+<h3>📚 ${gorev.ders}</h3>
+
+<p>
+${gorev.tur}
+</p>
+
+<p>
+🎯 Hedef: ${gorev.hedef}
+</p>
+
+<p>
+✅ Çözülen: ${gorev.tamamlanan}
+</p>
+
+
+<button onclick="gorevTamamla(${index})">
+
++ Tamamlandı
+
+</button>
+
+
+${gorev.link ? 
+`<a href="${gorev.link}" target="_blank">
+▶️ Video
+</a>` 
+:""}
+
+
+</div>
+
+`;
+
+});
+
+
+}
+
+
+
+function gorevTamamla(index){
+
+let gorevler =
+JSON.parse(localStorage.getItem("gorevler_" + aktifKullanici)) || [];
+
+gorevler[index].tamamlanan++;
+
+
+localStorage.setItem(
+"gorevler_" + aktifKullanici,
+JSON.stringify(gorevler)
+);
+
+gorevleriGoster();
 
 }
