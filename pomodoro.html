@@ -6,42 +6,87 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>YKS Silkici - Pomodoro</title>
+<title>YKS Silkici - Pomodoro Merkezi</title>
 
 <link rel="stylesheet" href="style.css">
 
 <style>
 
 .fullscreenBox{
+
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
-z-index:999;
+z-index:9999;
 background:#08111f;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
+padding:20px;
+
 }
 
+
+.odak{
+
+position:relative;
+
+}
+
+
 .buyut{
+
 position:absolute;
 right:15px;
 top:15px;
 width:45px;
-padding:8px;
+height:40px;
+padding:5px;
 background:#334155;
+
 }
 
-.odak{
-position:relative;
+
+
+.buyukSaat{
+
+font-size:70px;
+letter-spacing:5px;
+font-weight:800;
+
 }
+
+
+
+.fullscreenBox h1{
+
+font-size:90px;
+
+}
+
+
+
+.kartBaslik{
+
+color:#94a3b8;
+
+}
+
+
+#kayitlar .card{
+
+margin-top:15px;
+
+}
+
 
 </style>
 
 </head>
+
 
 
 <body>
@@ -50,26 +95,43 @@ position:relative;
 <div class="container">
 
 
-<h1>⏱️ Pomodoro Merkezi</h1>
+
+<h1>⏱️ YKS Silkici</h1>
 
 
 <p class="subtitle">
+
 Odaklan, çalış, ilerle.
+
 </p>
 
 
 
+
+<!-- SAAT -->
+
 <div class="box odak" id="saatBox">
 
-<button class="buyut" onclick="tamEkran('saatBox')">⛶</button>
+
+<button class="buyut" onclick="tamEkran('saatBox')">
+
+⛶
+
+</button>
+
 
 <h2>🕒 Canlı Saat</h2>
 
-<h1 id="saat">
+
+<h1 id="saat" class="buyukSaat">
+
 00:00:00
+
 </h1>
 
+
 <p id="tarih"></p>
+
 
 </div>
 
@@ -77,44 +139,125 @@ Odaklan, çalış, ilerle.
 
 
 
+<!-- POMODORO -->
+
 <div class="box odak" id="pomBox">
 
-<button class="buyut" onclick="tamEkran('pomBox')">⛶</button>
+
+<button class="buyut" onclick="tamEkran('pomBox')">
+
+⛶
+
+</button>
+
+
 
 <h2>🔥 Pomodoro</h2>
 
 
 <select id="sure">
 
+
+<option value="5">5 Dakika</option>
+
 <option value="10">10 Dakika</option>
+
 <option value="15">15 Dakika</option>
+
 <option value="25" selected>25 Dakika</option>
+
 <option value="30">30 Dakika</option>
+
 <option value="45">45 Dakika</option>
+
 <option value="60">60 Dakika</option>
+
 
 </select>
 
 
+
 <h1 id="pomodoro">
+
 25:00
+
 </h1>
 
 
 
 <button onclick="baslat()">
+
 ▶ Başlat
+
 </button>
 
 
 <button onclick="durdur()">
+
 ⏸ Durdur
+
 </button>
 
 
 <button onclick="sifirla()">
+
 🔄 Sıfırla
+
+</button><!-- KRONOMETRE -->
+
+<div class="box odak" id="kronoBox">
+
+
+<button class="buyut" onclick="tamEkran('kronoBox')">
+
+⛶
+
 </button>
+
+
+
+<h2>⏲️ Kronometre</h2>
+
+
+<h1 id="kronometre">
+
+00:00:00
+
+</h1>
+
+
+
+
+<button onclick="kronoBaslat()">
+
+▶ Başlat
+
+</button>
+
+
+
+<button onclick="kronoDurdur()">
+
+⏸ Durdur
+
+</button>
+
+
+
+<button onclick="kronoSifirla()">
+
+🔄 Sıfırla
+
+</button>
+
+
+
+<button onclick="kronoKaydet()">
+
+💾 Çalışmayı Kaydet
+
+</button>
+
 
 
 </div>
@@ -123,44 +266,83 @@ Odaklan, çalış, ilerle.
 
 
 
-<div class="box odak" id="kronoBox">
+<!-- İSTATİSTİK ÖZET -->
 
-<button class="buyut" onclick="tamEkran('kronoBox')">⛶</button>
-
-
-<h2>⏲️ Kronometre</h2>
+<div class="box">
 
 
-<h1 id="kronometre">
-00:00:00
-</h1>
+<h2>📊 Bugünkü Çalışma</h2>
+
+
+<div class="stats">
+
+
+<div>
+
+⏱️ Dakika
+
+<br>
+
+<b id="bugunDakika">
+
+0
+
+</b>
+
+</div>
 
 
 
-<button onclick="kronoBaslat()">
-▶ Başlat
-</button>
+
+<div>
+
+🔥 Pomodoro
+
+<br>
+
+<b id="pomSayisi">
+
+0
+
+</b>
+
+</div>
 
 
-<button onclick="kronoDurdur()">
-⏸ Durdur
-</button>
 
 
-<button onclick="kronoSifirla()">
-🔄 Sıfırla
-</button>
+<div>
+
+📚 Toplam
+
+<br>
+
+<b id="toplamDakika">
+
+0
+
+</b>
+
+</div>
 
 
-<button onclick="kronoKaydet()">
-💾 Çalışmayı Kaydet
-</button>
+</div>
 
 
-</div><div class="box">
+</div>
 
 
-<h2>📊 Bugünkü Çalışmalar</h2>
+
+
+
+
+<!-- KAYITLAR -->
+
+
+<div class="box">
+
+
+<h2>📅 Çalışma Geçmişi</h2>
 
 
 <div id="kayitlar">
@@ -182,26 +364,16 @@ Odaklan, çalış, ilerle.
 
 
 
-</div>
+</div><script>
 
 
-
-
-
-
-<script>
-
-
-// tam ekran sistemi
+// TAM EKRAN
 
 function tamEkran(id){
 
-
 let kutu=document.getElementById(id);
 
-
 kutu.classList.toggle("fullscreenBox");
-
 
 }
 
@@ -209,30 +381,23 @@ kutu.classList.toggle("fullscreenBox");
 
 
 
-
-
-// canlı saat
+// CANLI SAAT
 
 
 function saatGuncelle(){
 
-
 let simdi=new Date();
 
 
-document.getElementById("saat").innerHTML=
-
+document.getElementById("saat").innerHTML =
 simdi.toLocaleTimeString("tr-TR");
 
 
-
-document.getElementById("tarih").innerHTML=
-
+document.getElementById("tarih").innerHTML =
 simdi.toLocaleDateString("tr-TR");
 
 
 }
-
 
 
 setInterval(saatGuncelle,1000);
@@ -247,18 +412,48 @@ saatGuncelle();
 
 
 
-// pomodoro
-
-
-let dakika =
-Number(localStorage.getItem("pomDakika")) || 25;
-
-
-let saniye =
-Number(localStorage.getItem("pomSaniye")) || 0;
+// POMODORO SİSTEMİ
 
 
 let pomTimer=null;
+
+
+let pomDakika =
+Number(localStorage.getItem("pomDakika")) || 25;
+
+
+let pomSaniye =
+Number(localStorage.getItem("pomSaniye")) || 0;
+
+
+
+let pomBaslangic =
+Number(localStorage.getItem("pomBaslangic")) || null;
+
+
+
+
+
+function gosterPom(){
+
+
+document.getElementById("pomodoro").innerHTML =
+
+String(pomDakika).padStart(2,"0")
+
++
+
+":"
+
++
+
+String(pomSaniye).padStart(2,"0");
+
+
+}
+
+
+
 
 
 
@@ -269,22 +464,43 @@ function baslat(){
 if(pomTimer) return;
 
 
+
+if(!pomBaslangic){
+
+pomBaslangic=Date.now();
+
+localStorage.setItem(
+"pomBaslangic",
+pomBaslangic
+);
+
+}
+
+
+
 pomTimer=setInterval(function(){
 
 
-
-if(saniye===0){
-
-
-if(dakika===0){
+pomSaniye--;
 
 
-clearInterval(pomTimer);
 
-pomTimer=null;
+if(pomSaniye<0){
 
 
-alert("Pomodoro tamamlandı 🔥");
+pomSaniye=59;
+
+pomDakika--;
+
+
+}
+
+
+
+if(pomDakika<=0 && pomSaniye<=0){
+
+
+pomBitir();
 
 
 return;
@@ -293,28 +509,25 @@ return;
 }
 
 
-dakika--;
-
-saniye=59;
-
-
-}else{
-
-
-saniye--;
-
-
-}
 
 
 
-localStorage.setItem("pomDakika",dakika);
+localStorage.setItem(
+"pomDakika",
+pomDakika
+);
 
-localStorage.setItem("pomSaniye",saniye);
+
+
+localStorage.setItem(
+"pomSaniye",
+pomSaniye
+);
 
 
 
 gosterPom();
+
 
 
 },1000);
@@ -328,15 +541,19 @@ gosterPom();
 
 
 
+
 function durdur(){
 
 
 clearInterval(pomTimer);
 
+
 pomTimer=null;
 
 
+
 }
+
 
 
 
@@ -349,14 +566,31 @@ function sifirla(){
 durdur();
 
 
-dakika=
+pomDakika =
 Number(document.getElementById("sure").value);
 
 
-saniye=0;
+
+pomSaniye=0;
+
+
+
+localStorage.setItem(
+"pomDakika",
+pomDakika
+);
+
+
+
+localStorage.setItem(
+"pomSaniye",
+pomSaniye
+);
+
 
 
 gosterPom();
+
 
 
 }
@@ -366,12 +600,108 @@ gosterPom();
 
 
 
-function gosterPom(){
+document
+.getElementById("sure")
+.addEventListener("change",function(){
 
 
-document.getElementById("pomodoro").innerHTML=
+pomDakika=Number(this.value);
 
-dakika.toString().padStart(2,"0")
+pomSaniye=0;
+
+
+gosterPom();
+
+
+});
+
+
+
+
+
+function pomBitir(){
+
+
+clearInterval(pomTimer);
+
+
+pomTimer=null;
+
+
+localStorage.removeItem("pomBaslangic");
+
+
+
+pomSayisiArttir();
+
+
+
+let ses=new Audio(
+
+"https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg"
+
+);
+
+
+
+ses.play();
+
+
+
+alert("Pomodoro tamamlandı 🔥");
+
+
+
+pomDakika=
+Number(document.getElementById("sure").value);
+
+
+
+pomSaniye=0;
+
+
+gosterPom();
+
+
+
+}
+
+
+
+
+
+
+gosterPom();
+
+
+// KRONOMETRE SİSTEMİ
+
+
+let kronoTimer=null;
+
+
+let kronoSure =
+Number(localStorage.getItem("kronoSure")) || 0;
+
+
+
+function kronoGoster(){
+
+
+let saat=Math.floor(kronoSure/3600);
+
+
+let dakika=Math.floor((kronoSure%3600)/60);
+
+
+let saniye=kronoSure%60;
+
+
+
+document.getElementById("kronometre").innerHTML=
+
+
+String(saat).padStart(2,"0")
 
 +
 
@@ -379,32 +709,19 @@ dakika.toString().padStart(2,"0")
 
 +
 
-saniye.toString().padStart(2,"0");
+String(dakika).padStart(2,"0")
+
++
+
+":"
+
++
+
+String(saniye).padStart(2,"0");
+
 
 
 }
-
-
-
-gosterPom();
-
-
-
-
-
-
-
-
-
-// kronometre
-
-
-let krono=
-
-Number(localStorage.getItem("krono")) || 0;
-
-
-let kronoTimer=null;
 
 
 
@@ -421,10 +738,13 @@ if(kronoTimer) return;
 kronoTimer=setInterval(function(){
 
 
-krono++;
+kronoSure++;
 
 
-localStorage.setItem("krono",krono);
+localStorage.setItem(
+"kronoSure",
+kronoSure
+);
 
 
 kronoGoster();
@@ -442,15 +762,19 @@ kronoGoster();
 
 
 
+
 function kronoDurdur(){
 
 
 clearInterval(kronoTimer);
 
+
 kronoTimer=null;
 
 
+
 }
+
 
 
 
@@ -463,10 +787,12 @@ function kronoSifirla(){
 kronoDurdur();
 
 
-krono=0;
+kronoSure=0;
 
 
-localStorage.removeItem("krono");
+localStorage.removeItem(
+"kronoSure"
+);
 
 
 kronoGoster();
@@ -479,42 +805,6 @@ kronoGoster();
 
 
 
-function kronoGoster(){
-
-
-
-let saat=Math.floor(krono/3600);
-
-let dakika=Math.floor((krono%3600)/60);
-
-let saniye=krono%60;
-
-
-
-
-document.getElementById("kronometre").innerHTML=
-
-saat.toString().padStart(2,"0")
-
-+
-
-":"
-
-+
-
-dakika.toString().padStart(2,"0")
-
-+
-
-":"
-
-+
-
-saniye.toString().padStart(2,"0");
-
-
-}
-
 
 
 kronoGoster();
@@ -525,21 +815,37 @@ kronoGoster();
 
 
 
-// çalışma kaydetme
+
+
+
+// ÇALIŞMA KAYDETME
 
 
 function kronoKaydet(){
 
 
-let liste=
+if(kronoSure===0){
 
-JSON.parse(localStorage.getItem("calismaKayitlari")) || [];
+alert("Önce biraz çalışmalısın.");
+
+return;
+
+}
 
 
 
-let tarih=
+let liste =
 
+JSON.parse(
+localStorage.getItem("calismaKayitlari")
+)
+|| [];
+
+
+
+let tarih =
 new Date().toLocaleDateString("tr-TR");
+
 
 
 
@@ -547,9 +853,11 @@ liste.push({
 
 tarih:tarih,
 
-sure:krono
+sure:kronoSure
+
 
 });
+
 
 
 
@@ -567,7 +875,11 @@ JSON.stringify(liste)
 alert("Çalışma kaydedildi 💪");
 
 
+
 kayitGoster();
+
+
+istatistikGuncelle();
 
 
 }
@@ -579,18 +891,26 @@ kayitGoster();
 
 
 
+
+
+// KAYITLARI GÖSTER
+
+
 function kayitGoster(){
 
 
 let alan=
-
 document.getElementById("kayitlar");
 
 
 
 let liste=
 
-JSON.parse(localStorage.getItem("calismaKayitlari")) || [];
+JSON.parse(
+localStorage.getItem("calismaKayitlari")
+)
+
+|| [];
 
 
 
@@ -598,7 +918,7 @@ alan.innerHTML="";
 
 
 
-liste.forEach(function(x,index){
+liste.reverse().forEach(function(x,index){
 
 
 
@@ -614,7 +934,8 @@ alan.innerHTML += `
 
 <p>📅 ${x.tarih}</p>
 
-<p>⏱️ ${dakika} dakika</p>
+
+<p>⏱️ ${dakika} dakika çalışıldı</p>
 
 
 
@@ -627,7 +948,6 @@ alan.innerHTML += `
 
 
 </div>
-
 
 
 `;
@@ -645,13 +965,18 @@ alan.innerHTML += `
 
 
 
-function kayitSil(index){
 
+
+function kayitSil(index){
 
 
 let liste=
 
-JSON.parse(localStorage.getItem("calismaKayitlari")) || [];
+JSON.parse(
+localStorage.getItem("calismaKayitlari")
+)
+
+|| [];
 
 
 
@@ -672,13 +997,150 @@ JSON.stringify(liste)
 kayitGoster();
 
 
+istatistikGuncelle();
+
+
+}
+
+
+
+kayitGoster();
+
+// POMODORO SAYACI
+
+
+function pomSayisiArttir(){
+
+
+let sayi =
+
+Number(localStorage.getItem("pomSayisi"))
+|| 0;
+
+
+
+sayi++;
+
+
+
+localStorage.setItem(
+"pomSayisi",
+sayi
+);
+
+
+
+istatistikGuncelle();
+
+
 }
 
 
 
 
 
-kayitGoster();
+
+
+
+
+// İSTATİSTİK SİSTEMİ
+
+
+function istatistikGuncelle(){
+
+
+let liste =
+
+JSON.parse(
+localStorage.getItem("calismaKayitlari")
+)
+
+|| [];
+
+
+
+let bugun =
+
+new Date().toLocaleDateString("tr-TR");
+
+
+
+let toplam=0;
+
+
+
+liste.forEach(function(x){
+
+
+let dakika=Math.floor(x.sure/60);
+
+
+toplam+=dakika;
+
+
+
+});
+
+
+
+
+
+
+let bugunToplam=0;
+
+
+
+liste.forEach(function(x){
+
+
+if(x.tarih===bugun){
+
+
+bugunToplam +=
+
+Math.floor(x.sure/60);
+
+
+}
+
+
+});
+
+
+
+
+
+
+document.getElementById("bugunDakika").innerHTML =
+
+bugunToplam;
+
+
+
+document.getElementById("toplamDakika").innerHTML =
+
+toplam;
+
+
+
+document.getElementById("pomSayisi").innerHTML =
+
+localStorage.getItem("pomSayisi")
+|| 0;
+
+
+
+}
+
+
+
+
+
+
+
+istatistikGuncelle();
+
+
 
 
 
@@ -688,3 +1150,6 @@ kayitGoster();
 </body>
 
 </html>
+
+
+</div>
