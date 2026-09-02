@@ -42,8 +42,21 @@ Hedeflerini planla, geçmişini takip et.
 
 <div class="box">
 
-
 <h2>🎯 Günlük Hedef</h2>
+
+<p>
+Bugünkü hedefini belirle ve kaydet.
+</p>
+
+
+<button onclick="hedefAc()">
+
+🎯 Hedef Belirle
+
+</button>
+
+
+<div id="hedefAlan" style="display:none;">
 
 
 <textarea 
@@ -54,16 +67,18 @@ placeholder="Bugün ne yapacağım?">
 
 <button onclick="hedefKaydet()">
 
-💾 Günlük Hedefi Kaydet
+💾 Kaydet
 
 </button>
+
+
+</div>
 
 
 <p id="hedefMesaj"></p>
 
 
 </div>
-
 
 
 
@@ -244,33 +259,35 @@ eskiHedef;
 
 
 
-
-
 function hedefKaydet(){
 
+let hedef =
+document.getElementById("gunlukHedef").value.trim();
 
-let hedef=
 
-document.getElementById("gunlukHedef").value;
+if(hedef==""){
 
+document.getElementById("hedefMesaj").innerHTML =
+"⚠️ Henüz günlük hedef girilmedi";
+
+return;
+
+}
 
 
 localStorage.setItem(
-
 "gunlukHedef",
-
 hedef
-
 );
 
 
-
-document.getElementById("hedefMesaj").innerHTML=
-
+document.getElementById("hedefMesaj").innerHTML =
 "✅ Günlük hedef kaydedildi";
 
 
 }
+
+
 
 
 
@@ -527,6 +544,23 @@ tarihGoster();
 programOlustur();
 
 gecmisGoster();
+  
+  function hedefAc(){
+
+let alan = document.getElementById("hedefAlan");
+
+if(alan.style.display=="none"){
+
+alan.style.display="block";
+
+}
+else{
+
+alan.style.display="none";
+
+}
+
+}
 
 
 
