@@ -273,7 +273,60 @@ window.onload = function(){
 
 
     }
+    
+    };
 
+function hedefEkleAc(){
 
+let alan = document.getElementById("hedefEkleAlan");
+
+if(alan.style.display=="block"){
+
+alan.style.display="none";
 
 }
+else{
+
+alan.style.display="block";
+
+}
+
+}
+
+
+function hedefKaydet(){
+
+let hedef=document.getElementById("yeniHedef").value.trim();
+
+if(hedef==""){
+alert("Hedef boş bırakılamaz");
+return;
+}
+
+localStorage.setItem("gunlukHedef",hedef);
+
+document.getElementById("hedefYazi").innerHTML=hedef;
+
+alert("🎯 Günlük hedef kaydedildi");
+
+}
+
+function hedefYukle(){
+
+let hedef = localStorage.getItem("gunlukHedef");
+
+let alan = document.getElementById("hedefYazi");
+
+
+if(hedef && alan){
+
+alan.innerHTML = hedef;
+
+}
+
+}
+
+hedefYukle();
+
+
+
