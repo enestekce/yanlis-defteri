@@ -221,56 +221,52 @@ Yanlışlarını analiz et, netlerini yükselt.
 
 </div>
 
-  <div class="box">
 
-<h2>🎯 Günün Hedefi</h2>
+<div class="box">
+
+<h2>🎯 Günlük Görevler</h2>
 
 <p>
-Bugünkü çalışma hedeflerini tamamla.
+Bugünkü çalışma hedeflerini takip et.
 </p>
 
 
-<button onclick="hedefEkleAc()">
+<button onclick="gorevEkleAc()">
 
-🎯 Günlük Hedef Ekle
+➕ Yeni Görev Ekle
 
 </button>
 
 
+<div id="gorevEkleAlan" style="display:none;">
 
-<div id="hedefEkleAlan" style="display:none;">
+<input id="dersAdi" placeholder="Ders (Matematik, Fizik...)">
+
+<input id="gorevTuru" placeholder="Tür (Soru, Video, Tekrar...)">
+
+<input id="hedefMiktar" placeholder="Hedef sayı/dakika">
 
 
-<textarea 
-id="yeniHedef"
-placeholder="Örn: Matematik 50 soru, Kimya 30 dk...">
-</textarea>
+<input id="youtubeLink" placeholder="Youtube linki (opsiyonel)">
 
 
-<button onclick="hedefKaydet()">
+<button onclick="gorevKaydet()">
 
-💾 Kaydet
+💾 Görevi Kaydet
 
 </button>
 
+</div>
+
+
+<div id="gorevListesi">
 
 </div>
 
 
-
-<div class="progress">
-
-<div id="hedefBar"></div>
-
 </div>
+    
 
-
-
-<p id="hedefYazi">
-
-Henüz hedef girilmedi.
-
-</p>
 
 
 </div>
