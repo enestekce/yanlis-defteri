@@ -48,7 +48,9 @@ function kayitGetir(){
 
 
     return JSON.parse(
+
         localStorage.getItem("kayitlar_" + aktifKullanici)
+
     ) || [];
 
 }
@@ -66,8 +68,11 @@ function kayitKaydet(kayit){
 
 
     localStorage.setItem(
+
         "kayitlar_" + aktifKullanici,
+
         JSON.stringify(liste)
+
     );
 
 }
@@ -78,18 +83,29 @@ function kayitKaydet(kayit){
 
 function istatistikGuncelle(){
 
+
     let liste = kayitGetir();
 
 
+
     let toplamSayi = liste.length;
+
 
 
     let yanlisSayi =
     liste.filter(x => x.durum == "Yanlış yaptım").length;
 
 
+
     let bosSayi =
     liste.filter(x => x.durum == "Boş bıraktım").length;
+
+
+
+    let tekrarSayi =
+    liste.filter(x => x.tekrar == true).length;
+
+
 
 
 
@@ -101,12 +117,16 @@ function istatistikGuncelle(){
     }
 
 
+
+
     if(document.getElementById("yanlis")){
 
         document.getElementById("yanlis").innerHTML =
         yanlisSayi;
 
     }
+
+
 
 
     if(document.getElementById("bos")){
@@ -116,7 +136,20 @@ function istatistikGuncelle(){
 
     }
 
+
+
+
+    if(document.getElementById("tekrar")){
+
+        document.getElementById("tekrar").innerHTML =
+        tekrarSayi;
+
+    }
+
+
 }
+
+
 
 
 
@@ -126,6 +159,7 @@ function kayitSil(index){
 
 
     let veriler = kayitGetir();
+
 
 
     if(confirm("Bu kaydı silmek istediğine emin misin?")){
@@ -144,16 +178,20 @@ function kayitSil(index){
         );
 
 
+
         location.reload();
 
 
     }
 
+
 }
 
 
 
-// tekrar edildi işareti
+
+
+// tekrar edildi
 
 function tekrarYapildi(index){
 
@@ -161,8 +199,19 @@ function tekrarYapildi(index){
     let veriler = kayitGetir();
 
 
-    veriler[index].tekrar =
-    !veriler[index].tekrar;
+
+    if(!veriler[index].tekrar){
+
+        veriler[index].tekrar = true;
+
+    }
+
+    else{
+
+        veriler[index].tekrar = false;
+
+    }
+
 
 
 
@@ -175,9 +224,14 @@ function tekrarYapildi(index){
     );
 
 
+
     location.reload();
 
+
 }
+
+
+
 
 
 
@@ -186,8 +240,11 @@ function tekrarYapildi(index){
 window.onload = function(){
 
 
+
     let kayitli =
+
     localStorage.getItem("aktifKullanici");
+
 
 
 
@@ -197,20 +254,26 @@ window.onload = function(){
         aktifKullanici = kayitli;
 
 
+
         document.getElementById("userSelect").classList.add("hidden");
+
 
 
         document.getElementById("mainPanel").classList.remove("hidden");
 
 
+
         document.getElementById("hosgeldin").innerHTML =
+
         "Hoş geldin " + kayitli;
+
 
 
         istatistikGuncelle();
 
 
     }
+
 
 
 }
