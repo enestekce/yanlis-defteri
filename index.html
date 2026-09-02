@@ -1,97 +1,293 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YKS Silici</title>
+
+<title>YKS Silkici</title>
+
 <link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
+
 <div class="container">
 
-<h1>YKS Silici</h1>
+
+
+<h1>🚀 YKS Silkici</h1>
+
+
 <p class="subtitle">
 Yanlışlarını analiz et, netlerini yükselt.
 </p>
 
 
+
+
+
 <div id="userSelect" class="box">
+
 
 <h2>Kullanıcı seç</h2>
 
+
 <button onclick="giris('Enes')">
+
 👤 Enes
+
 </button>
+
+
 
 <button onclick="giris('Şahan')">
+
 👤 Şahan
+
 </button>
 
+
+
 </div>
+
+
+
+
+
 
 
 
 <div id="mainPanel" class="hidden">
 
+
+
 <h2 id="hosgeldin"></h2>
+
+
 
 
 <div class="stats">
 
-<div>
-Toplam kayıt
+
+
+<div class="statCard">
+
+📚 Toplam Kayıt
+
 <br>
-<b id="toplam">0</b>
+
+<b id="toplam">
+0
+</b>
+
 </div>
 
 
-<div>
-Yanlış
+
+
+
+<div class="statCard">
+
+❌ Yanlış
+
 <br>
-<b id="yanlis">0</b>
+
+<b id="yanlis">
+0
+</b>
+
 </div>
 
 
-<div>
-Boş
+
+
+
+<div class="statCard">
+
+⬜ Boş
+
 <br>
-<b id="bos">0</b>
-</div>
+
+<b id="bos">
+0
+</b>
 
 </div>
 
 
 
-<div class="menu">
+
+
+<div class="statCard">
+
+🔁 Tekrar
+
+<br>
+
+<b id="tekrar">
+0
+</b>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="box">
+
+
+<h2>📌 Menü</h2>
+
 
 
 <button onclick="git('yanlis-ekle.html')">
+
 ➕ Yeni Soru Ekle
+
 </button>
+
+
 
 
 <button onclick="git('yanlislarim.html')">
+
 📚 Yanlışlarım
+
 </button>
+
+
+
 
 
 <button onclick="git('istatistik.html')">
+
 📊 İstatistik
+
 </button>
 
 
+
+
+
+<button onclick="git('denemeler.html')">
+
+📝 Deneme Takibi
+
+</button>
+
+
+
+
+
+<button onclick="git('tekrar.html')">
+
+🔁 Tekrar Merkezi
+
+</button>
+
+
+
+
+
+<button onclick="git('pomodoro.html')">
+
+⏱️ Pomodoro
+
+</button>
+
+
+
 </div>
 
 
+
+
+
+
+
+<div class="box">
+
+
+<h2>🎯 Günün Hedefi</h2>
+
+
+<p>
+Bugünkü çalışma hedeflerini tamamla.
+</p>
+
+
+
+<div class="progress">
+
+<div id="hedefBar"></div>
+
 </div>
 
 
+
+<p id="hedefYazi">
+
+Henüz hedef girilmedi.
+
+</p>
+
+
+
 </div>
+
+
+
+
+
+
+<div class="box">
+
+
+<h2>🔥 YKS Silkici Durumu</h2>
+
+
+<p>
+
+Yanlışlarını azalt,
+eksiklerini kapat,
+netlerini yükselt.
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+</div>
+
+
 
 
 <script src="script.js"></script>
 
+
+
 </body>
+
 </html>
