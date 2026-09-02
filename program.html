@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YKS Silkici - Program</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>📅 Çalışma Programı</h1>
+
+<p class="subtitle">
+Hedeflerini planla, düzenini takip et.
+</p>
+
+
+
+<div class="box">
+
+
+<h2>🎯 Günlük Hedef</h2>
+
+
+<textarea 
+id="gunlukHedef"
+placeholder="Bugün ne yapacağım? Örn: 100 soru kimya, 50 matematik...">
+</textarea>
+
+
+<button onclick="hedefKaydet()">
+💾 Hedefi Kaydet
+</button>
+
+
+</div>
+
+
+
+
+
+
+<div class="box">
+
+
+<h2>📆 Haftalık Çizelge</h2>
+
+
+
+<div id="hafta"></div>
+
+
+
+</div>
+
+
+
+
+
+<button onclick="window.location.href='index.html'">
+
+🏠 Ana Sayfa
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+<script src="script.js"></script>
+
+
+
+<script>
+
+
+
+let gunler = [
+
+"Pazartesi",
+
+"Salı",
+
+"Çarşamba",
+
+"Perşembe",
+
+"Cuma",
+
+"Cumartesi",
+
+"Pazar"
+
+];
+
+
+
+
+function programOlustur(){
+
+
+let alan =
+document.getElementById("hafta");
+
+
+alan.innerHTML="";
+
+
+
+let kayit =
+JSON.parse(localStorage.getItem("haftalikProgram")) || {};
+
+
+
+gunler.forEach(function(gun){
+
+
+
+alan.innerHTML += `
+
+
+<div class="card">
+
+
+<h3>📌 ${gun}</h3>
+
+
+
+<textarea
+
+id="${gun}"
+
+placeholder="${gun} hedefi...">
+
+${kayit[gun] || ""}
+
+</textarea>
+
+
+
+</div>
+
+
+`;
+
+
+
+});
+
+
+
+}
+
+
+
+
+
+function hedefKaydet(){
+
+
+let hedef =
+document.getElementById("gunlukHedef").value;
+
+
+
+localStorage.setItem(
+
+"gunlukHedef",
+
+hedef
+
+);
+
+
+
+alert("Günlük hedef kaydedildi.");
+
+
+}
+
+
+
+
+
+
+function programKaydet(){
+
+
+let veri={};
+
+
+
+gunler.forEach(function(gun){
+
+
+veri[gun]=
+document.getElementById(gun).value;
+
+
+
+});
+
+
+
+localStorage.setItem(
+
+"haftalikProgram",
+
+JSON.stringify(veri)
+
+);
+
+
+
+alert("Haftalık program kaydedildi.");
+
+
+
+}
+
+
+
+
+programOlustur();
+
+
+
+</script>
+
+
+
+
+
+<button onclick="programKaydet()">
+
+💾 Haftalık Programı Kaydet
+
+</button>
+
+
+
+</body>
+
+</html>
