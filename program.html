@@ -21,21 +21,21 @@
 
 <h1>📅 Çalışma Programı</h1>
 
-
 <p class="subtitle">
-Hedeflerini planla, düzenini takip et.
+Hedeflerini planla, geçmişini unutma.
 </p>
+
 
 
 
 <div class="box">
 
-<h2>📆 Bugün</h2>
+<h2>📆 Bugünün Tarihi</h2>
 
 <p id="tarih"></p>
 
-
 </div>
+
 
 
 
@@ -49,7 +49,7 @@ Hedeflerini planla, düzenini takip et.
 
 <textarea 
 id="gunlukHedef"
-placeholder="Bugün ne yapacağım? Örn: 100 soru kimya, 50 matematik...">
+placeholder="Bugün ne yapacağım?">
 </textarea>
 
 
@@ -62,7 +62,7 @@ placeholder="Bugün ne yapacağım? Örn: 100 soru kimya, 50 matematik...">
 
 
 
-<p id="hedefDurum"></p>
+<p id="hedefMesaj"></p>
 
 
 </div>
@@ -76,7 +76,7 @@ placeholder="Bugün ne yapacağım? Örn: 100 soru kimya, 50 matematik...">
 <div class="box">
 
 
-<h2>📆 Haftalık Çizelge</h2>
+<h2>📚 Haftalık Çizelge</h2>
 
 
 <div id="hafta"></div>
@@ -85,12 +85,30 @@ placeholder="Bugün ne yapacağım? Örn: 100 soru kimya, 50 matematik...">
 
 <button onclick="programKaydet()">
 
-💾 Haftalık Programı Kaydet
+💾 Bu Haftayı Kaydet
 
 </button>
 
 
-<p id="programDurum"></p>
+<p id="programMesaj"></p>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="box">
+
+
+<h2>🗂️ Geçmiş Programlar</h2>
+
+
+<div id="gecmis"></div>
 
 
 </div>
@@ -110,6 +128,8 @@ placeholder="Bugün ne yapacağım? Örn: 100 soru kimya, 50 matematik...">
 
 
 </div>
+
+
 
 
 
@@ -139,15 +159,17 @@ let gunler=[
 
 
 
+
 function tarihGoster(){
 
 
-let simdi=new Date();
+let tarih=new Date();
 
 
-document.getElementById("tarih").innerHTML=
+document.getElementById("tarih").innerHTML =
 
-simdi.toLocaleDateString("tr-TR");
+tarih.toLocaleDateString("tr-TR");
+
 
 
 }
@@ -166,9 +188,10 @@ let alan=document.getElementById("hafta");
 
 
 
-let kayit=
+let mevcut =
 
-JSON.parse(localStorage.getItem("haftalikProgram")) || {};
+JSON.parse(localStorage.getItem("aktifProgram")) || {};
+
 
 
 
@@ -186,13 +209,14 @@ alan.innerHTML += `
 <h3>📌 ${gun}</h3>
 
 
+
 <textarea
 
 id="${gun}"
 
-placeholder="${gun} hedefi...">
+placeholder="${gun} hedefi">
 
-${kayit[gun] || ""}
+${mevcut[gun] || ""}
 
 </textarea>
 
@@ -209,7 +233,7 @@ ${kayit[gun] || ""}
 
 
 
-let eskiHedef=
+let hedef =
 
 localStorage.getItem("gunlukHedef") || "";
 
@@ -217,7 +241,7 @@ localStorage.getItem("gunlukHedef") || "";
 
 document.getElementById("gunlukHedef").value=
 
-eskiHedef;
+hedef;
 
 
 
@@ -227,9 +251,7 @@ eskiHedef;
 
 
 
-
 function hedefKaydet(){
-
 
 
 let hedef=
@@ -248,7 +270,7 @@ hedef
 
 
 
-document.getElementById("hedefDurum").innerHTML=
+document.getElementById("hedefMesaj").innerHTML=
 
 "✅ Günlük hedef kaydedildi";
 
@@ -261,19 +283,18 @@ document.getElementById("hedefDurum").innerHTML=
 
 
 
+
 function programKaydet(){
 
 
-
-let veri={};
+let program={};
 
 
 
 gunler.forEach(function(gun){
 
 
-
-veri[gun]=
+program[gun]=
 
 document.getElementById(gun).value;
 
@@ -284,20 +305,171 @@ document.getElementById(gun).value;
 
 
 
+
+
+// aktif haftayı sakla
+
+
 localStorage.setItem(
 
-"haftalikProgram",
+"aktifProgram",
 
-JSON.stringify(veri)
+JSON.stringify(program)
 
 );
 
 
 
 
-document.getElementById("programDurum").innerHTML=
 
-"✅ Haftalık program kaydedildi";
+
+
+// geçmişe ekle
+
+
+let gecmis =
+
+JSON.parse(localStorage.getItem("programGecmisi")) || [];
+
+
+
+
+
+let tarih=new Date();
+
+
+
+let kayit={
+
+
+tarih:
+
+tarih.toLocaleDateString("tr-TR"),
+
+
+program:program
+
+
+};
+
+
+
+
+
+gecmis.unshift(kayit);
+
+
+
+
+
+localStorage.setItem(
+
+"programGecmisi",
+
+JSON.stringify(gecmis)
+
+);
+
+
+
+
+
+gecmisGoster();
+
+
+
+
+
+document.getElementById("programMesaj").innerHTML=
+
+"✅ Program kaydedildi";
+
+
+
+}
+
+
+
+
+
+
+
+function gecmisGoster(){
+
+
+
+let alan=
+
+document.getElementById("gecmis");
+
+
+
+let liste=
+
+JSON.parse(localStorage.getItem("programGecmisi")) || [];
+
+
+
+alan.innerHTML="";
+
+
+
+
+if(liste.length==0){
+
+
+alan.innerHTML=
+
+"Henüz geçmiş program yok.";
+
+
+return;
+
+
+}
+
+
+
+
+
+liste.forEach(function(x){
+
+
+
+alan.innerHTML += `
+
+
+
+<div class="card">
+
+
+<h3>📅 ${x.tarih}</h3>
+
+
+${gunler.map(gun=>
+
+
+"<p><b>"+gun+":</b> "+
+
+(x.program[gun] || "-")
+
++"</p>"
+
+
+).join("")}
+
+
+
+</div>
+
+
+
+`;
+
+
+
+});
+
 
 
 }
@@ -311,10 +483,11 @@ tarihGoster();
 
 programOlustur();
 
+gecmisGoster();
+
 
 
 </script>
-
 
 
 </body>
