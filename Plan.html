@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YKS Silkici - Günlük Plan</title>
+
+<style>
+
+body{
+
+background:#08111f;
+
+color:white;
+
+font-family:Arial;
+
+margin:0;
+
+padding:20px;
+
+}
+
+
+.container{
+
+max-width:700px;
+
+margin:auto;
+
+}
+
+
+h1{
+
+text-align:center;
+
+}
+
+
+.box{
+
+background:#111c2e;
+
+border-radius:15px;
+
+padding:20px;
+
+margin-top:20px;
+
+}
+
+
+.hedefBar{
+
+height:25px;
+
+background:#263449;
+
+border-radius:20px;
+
+overflow:hidden;
+
+}
+
+
+#doluluk{
+
+height:100%;
+
+width:0%;
+
+background:#22c55e;
+
+transition:.5s;
+
+}
+
+
+button{
+
+background:#2563eb;
+
+color:white;
+
+border:none;
+
+padding:12px 20px;
+
+border-radius:10px;
+
+font-size:16px;
+
+margin-top:10px;
+
+}
+
+
+input,select{
+
+width:100%;
+
+padding:12px;
+
+margin-top:10px;
+
+border-radius:8px;
+
+border:none;
+
+background:#1e293b;
+
+color:white;
+
+}
+
+
+.gorev{
+
+background:#1e293b;
+
+padding:15px;
+
+border-radius:10px;
+
+margin-top:10px;
+
+}
+
+
+.progress{
+
+height:15px;
+
+background:#334155;
+
+border-radius:10px;
+
+overflow:hidden;
+
+}
+
+
+.progress div{
+
+height:100%;
+
+background:#22c55e;
+
+width:0%;
+
+}
+
+
+.tamam{
+
+float:right;
+
+}
+
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>📅 Günlük YKS Planı</h1>
+
+
+
+<div class="box">
+
+
+<h2>🎯 Günlük Hedef</h2>
+
+
+<div class="hedefBar">
+
+<div id="doluluk"></div>
+
+</div>
+
+
+<p id="hedefYazi">
+
+0 / 300 dakika (0%)
+
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="box">
+
+
+<button onclick="formAc()">
+
+➕ Yeni Çalışma Ekle
+
+</button>
+
+
+<div id="formAlan" style="display:none;">
+
+
+
+<select id="ders">
+
+<option>Matematik</option>
+
+<option>Geometri</option>
+
+<option>Fizik</option>
+
+<option>Kimya</option>
+
+<option>Biyoloji</option>
+
+<option>Türkçe</option>
+
+<option>Tarih</option>
+
+<option>Coğrafya</option>
+
+<option>Felsefe</option>
+
+<option>Din Kültürü</option>
+
+</select>
+
+
+
+
+<select id="tur">
+
+<option>Soru Çözümü</option>
+
+<option>Konu Çalışması</option>
+
+<option>Video</option>
+
+<option>Genel Tekrar</option>
+
+</select>
+
+
+
+
+<input id="baslik" placeholder="Çalışma başlığı">
+
+
+<input id="hedef" placeholder="Hedef (soru/dakika)">
+
+
+
+<input id="tamamlanan" placeholder="Tamamlanan">
+
+
+
+<button onclick="kaydetGorev()">
+
+💾 Kaydet
+
+</button>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="box">
+
+
+<h2>📚 Bugünkü Çalışmalar</h2>
+
+
+<div id="liste">
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="box">
+
+
+<button onclick="gunKaydet()">
+
+▶ Günü Kaydet
+
+</button>
+
+
+<button onclick="window.location.href='index.html'">
+
+🏠 Ana Menü
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<script>
+
+
+let gorevler =
+
+JSON.parse(localStorage.getItem("gorevler"))
+
+|| [];
+
+
+
+function formAc(){
+
+let f=document.getElementById("formAlan");
+
+f.style.display=
+
+f.style.display=="none" ?
+
+"block":"none";
+
+}
+
+function kaydetGorev(){
+
+let gorev={
+
+id:Date.now(),
+
+ders:document.getElementById("ders").value,
+
+tur:document.getElementById("tur").value,
+
+baslik:document.getElementById("baslik").value,
+
+hedef:Number(document.getElementById("hedef").value)||0,
+
+tamamlanan:Number(document.getElementById("tamamlanan").value)||0,
+
+bitti:false
+
+};
+
+
+gorevler.push(gorev);
+
+
+localStorage.setItem(
+"gorevler",
+JSON.stringify(gorevler)
+);
+
+
+document.getElementById("baslik").value="";
+
+document.getElementById("hedef").value="";
+
+document.getElementById("tamamlanan").value="";
+
+
+listeGoster();
+
+
+formAc();
+
+
+}
+  function listeGoster(){
+
+let alan=document.getElementById("liste");
+
+
+alan.innerHTML="";
+
+
+gorevler.forEach(function(g){
+
+
+let yuzde=0;
+
+
+if(g.bitti){
+
+yuzde=100;
+
+}
+
+else if(g.hedef>0){
+
+yuzde=Math.floor(
+(g.tamamlanan/g.hedef)*100
+);
+
+}
+
+
+if(yuzde>100){
+
+yuzde=100;
+
+}
+
+
+
+alan.innerHTML += `
+
+<div class="gorev">
+
+
+<button class="tamam" onclick="tamamla(${g.id})">
+
+☑
+
+</button>
+
+
+<h3>${g.ders} - ${g.tur}</h3>
+
+
+<p>${g.baslik}</p>
+
+
+<p>
+
+${g.tamamlanan} / ${g.hedef}
+
+</p>
+
+
+<div class="progress">
+
+<div style="width:${yuzde}%"></div>
+
+</div>
+
+
+<p>
+
+%${yuzde}
+
+</p>
+
+
+</div>
+
+
+`;
+
+
+});
+
+
+hedefHesapla();
+
+
+}
+  function tamamla(id){
+
+let g=gorevler.find(
+x=>x.id===id
+);
+
+
+g.bitti=true;
+
+
+localStorage.setItem(
+"gorevler",
+JSON.stringify(gorevler)
+);
+
+
+listeGoster();
+
+
+}
+  let gunlukHedef = 300;
+
+
+function hedefHesapla(){
+
+let toplamDakika = 0;
+
+
+gorevler.forEach(function(g){
+
+if(g.tur=="Video" || g.tur=="Konu Çalışması" || g.tur=="Genel Tekrar"){
+
+toplamDakika += g.tamamlanan;
+
+}
+
+});
+
+
+let yuzde = Math.floor(
+(toplamDakika / gunlukHedef) * 100
+);
+
+
+if(yuzde>100){
+
+yuzde=100;
+
+}
+
+
+document.getElementById("doluluk").style.width =
+yuzde+"%";
+
+
+document.getElementById("hedefYazi").innerHTML =
+
+toplamDakika +
+" / " +
+gunlukHedef +
+" dakika ("+
+yuzde+
+"%)";
+
+
+}
+function gunKaydet(){
+
+let kayitlar =
+
+JSON.parse(
+localStorage.getItem("gunKayitlari")
+)
+
+|| [];
+
+
+let bugun = new Date().toLocaleDateString("tr-TR");
+
+
+kayitlar.push({
+
+tarih:bugun,
+
+gorevler:gorevler,
+
+yuzde:document.getElementById("hedefYazi").innerHTML
+
+});
+
+
+localStorage.setItem(
+
+"gunKayitlari",
+
+JSON.stringify(kayitlar)
+
+);
+
+
+alert("Bugünkü plan kaydedildi 💪");
+
+}
+
+  listeGoster();
+
+hedefHesapla();
+
+  
+</script>
+
+
+</body>
+
+</html>
