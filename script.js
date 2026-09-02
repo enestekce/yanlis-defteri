@@ -1,6 +1,8 @@
 let aktifKullanici = "";
 
 
+// kullanıcı giriş
+
 function giris(isim){
 
     aktifKullanici = isim;
@@ -23,6 +25,8 @@ function giris(isim){
 
 
 
+// sayfa değiştirme
+
 function git(sayfa){
 
     window.location.href = sayfa;
@@ -30,6 +34,8 @@ function git(sayfa){
 }
 
 
+
+// kayıtları getir
 
 function kayitGetir(){
 
@@ -49,9 +55,12 @@ function kayitGetir(){
 
 
 
+// kayıt kaydet
+
 function kayitKaydet(kayit){
 
     let liste = kayitGetir();
+
 
     liste.push(kayit);
 
@@ -65,129 +74,143 @@ function kayitKaydet(kayit){
 
 
 
+// ana ekran istatistik
+
 function istatistikGuncelle(){
 
     let liste = kayitGetir();
 
 
-    let toplam = liste.length;
+    let toplamSayi = liste.length;
 
 
-    let yanlis =
-    liste.filter(x=>x.durum=="Yanlış yaptım").length;
+    let yanlisSayi =
+    liste.filter(x => x.durum == "Yanlış yaptım").length;
 
 
-    let bos =
-    liste.filter(x=>x.durum=="Boş bıraktım").length;
+    let bosSayi =
+    liste.filter(x => x.durum == "Boş bıraktım").length;
 
 
 
     if(document.getElementById("toplam")){
 
-
-        toplam.innerHTML=toplam;
-
+        document.getElementById("toplam").innerHTML =
+        toplamSayi;
 
     }
 
 
     if(document.getElementById("yanlis")){
 
-        document.getElementById("yanlis").innerHTML=yanlis;
+        document.getElementById("yanlis").innerHTML =
+        yanlisSayi;
 
     }
 
 
     if(document.getElementById("bos")){
 
-        document.getElementById("bos").innerHTML=bos;
+        document.getElementById("bos").innerHTML =
+        bosSayi;
 
     }
-
 
 }
 
 
+
+// kayıt silme
 
 function kayitSil(index){
 
 
-let veriler = kayitGetir();
+    let veriler = kayitGetir();
 
 
-veriler.splice(index,1);
+    if(confirm("Bu kaydı silmek istediğine emin misin?")){
 
 
-localStorage.setItem(
-
-"kayitlar_" + aktifKullanici,
-
-JSON.stringify(veriler)
-
-);
+        veriler.splice(index,1);
 
 
-location.reload();
 
+        localStorage.setItem(
+
+            "kayitlar_" + aktifKullanici,
+
+            JSON.stringify(veriler)
+
+        );
+
+
+        location.reload();
+
+
+    }
 
 }
 
 
+
+// tekrar edildi işareti
 
 function tekrarYapildi(index){
 
 
-let veriler=kayitGetir();
+    let veriler = kayitGetir();
 
 
-veriler[index].tekrar =
-!veriler[index].tekrar;
-
-
-localStorage.setItem(
-
-"kayitlar_" + aktifKullanici,
-
-JSON.stringify(veriler)
-
-);
-
-
-location.reload();
-
-
-}
+    veriler[index].tekrar =
+    !veriler[index].tekrar;
 
 
 
+    localStorage.setItem(
 
-window.onload=function(){
+        "kayitlar_" + aktifKullanici,
 
+        JSON.stringify(veriler)
 
-let kayitli =
-localStorage.getItem("aktifKullanici");
-
-
-if(kayitli && document.getElementById("mainPanel")){
+    );
 
 
-aktifKullanici=kayitli;
-
-
-document.getElementById("userSelect").classList.add("hidden");
-
-
-document.getElementById("mainPanel").classList.remove("hidden");
-
-
-document.getElementById("hosgeldin").innerHTML =
-"Hoş geldin " + kayitli;
-
-
-istatistikGuncelle();
-
+    location.reload();
 
 }
+
+
+
+// sayfa açılınca kullanıcıyı hatırla
+
+window.onload = function(){
+
+
+    let kayitli =
+    localStorage.getItem("aktifKullanici");
+
+
+
+    if(kayitli && document.getElementById("mainPanel")){
+
+
+        aktifKullanici = kayitli;
+
+
+        document.getElementById("userSelect").classList.add("hidden");
+
+
+        document.getElementById("mainPanel").classList.remove("hidden");
+
+
+        document.getElementById("hosgeldin").innerHTML =
+        "Hoş geldin " + kayitli;
+
+
+        istatistikGuncelle();
+
+
+    }
 
 
 }
