@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YKS Silkici - Pomodoro</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>⏱️ Pomodoro Merkezi</h1>
+
+
+<p class="subtitle">
+Odaklan, çalış, ilerle.
+</p>
+
+
+
+
+
+<div class="box">
+
+
+<h2>🕒 Canlı Saat</h2>
+
+
+<h1 id="saat">
+
+00:00:00
+
+</h1>
+
+
+<p id="tarih"></p>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="box">
+
+
+<h2>🔥 Pomodoro</h2>
+
+
+<h1 id="pomodoro">
+
+25:00
+
+</h1>
+
+
+
+<button onclick="baslat()">
+
+▶ Başlat
+
+</button>
+
+
+<button onclick="durdur()">
+
+⏸ Durdur
+
+</button>
+
+
+
+<button onclick="sifirla()">
+
+🔄 Sıfırla
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="box">
+
+
+<h2>⏲️ Kronometre</h2>
+
+
+<h1 id="kronometre">
+
+00:00:00
+
+</h1>
+
+
+
+<button onclick="kronoBaslat()">
+
+▶ Başlat
+
+</button>
+
+
+
+<button onclick="kronoDurdur()">
+
+⏸ Durdur
+
+</button>
+
+
+
+<button onclick="kronoSifirla()">
+
+🔄 Sıfırla
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+<div class="box">
+
+
+<h2>📊 Bugünkü Çalışma</h2>
+
+
+<p>
+
+Toplam süre:
+
+<b id="toplamSure">
+
+0
+
+</b>
+
+dakika
+
+</p>
+
+
+
+</div>
+
+
+
+
+
+
+
+<button onclick="window.location.href='index.html'">
+
+🏠 Ana Sayfa
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<script>
+
+
+// canlı saat
+
+
+function saatGuncelle(){
+
+
+let simdi=new Date();
+
+
+document.getElementById("saat").innerHTML=
+
+simdi.toLocaleTimeString("tr-TR");
+
+
+
+document.getElementById("tarih").innerHTML=
+
+simdi.toLocaleDateString("tr-TR");
+
+
+}
+
+
+
+setInterval(saatGuncelle,1000);
+
+saatGuncelle();
+
+
+
+
+
+
+// pomodoro
+
+
+let dakika=25;
+
+let saniye=0;
+
+let pomTimer;
+
+
+
+function baslat(){
+
+
+if(pomTimer) return;
+
+
+
+pomTimer=setInterval(function(){
+
+
+if(saniye==0){
+
+
+if(dakika==0){
+
+
+clearInterval(pomTimer);
+
+pomTimer=null;
+
+
+alert("Pomodoro bitti 🔥");
+
+
+return;
+
+
+}
+
+
+dakika--;
+
+saniye=59;
+
+
+}
+
+else{
+
+
+saniye--;
+
+
+}
+
+
+
+goster();
+
+
+
+},1000);
+
+
+}
+
+
+
+
+
+
+function durdur(){
+
+
+clearInterval(pomTimer);
+
+pomTimer=null;
+
+
+}
+
+
+
+
+
+
+function sifirla(){
+
+
+durdur();
+
+
+dakika=25;
+
+saniye=0;
+
+
+goster();
+
+
+}
+
+
+
+
+
+
+function goster(){
+
+
+document.getElementById("pomodoro").innerHTML=
+
+dakika.toString().padStart(2,"0")
+
++
+
+":"
+
++
+
+saniye.toString().padStart(2,"0");
+
+
+}
+
+
+
+
+
+
+
+
+// kronometre
+
+
+let krono=0;
+
+let kronoTimer;
+
+
+
+
+function kronoBaslat(){
+
+
+if(kronoTimer) return;
+
+
+kronoTimer=setInterval(function(){
+
+
+krono++;
+
+
+kronoGoster();
+
+
+},1000);
+
+
+}
+
+
+
+
+
+
+function kronoDurdur(){
+
+
+clearInterval(kronoTimer);
+
+kronoTimer=null;
+
+
+}
+
+
+
+
+
+
+function kronoSifirla(){
+
+
+kronoDurdur();
+
+
+krono=0;
+
+
+kronoGoster();
+
+
+}
+
+
+
+
+
+
+
+function kronoGoster(){
+
+
+let saat=Math.floor(krono/3600);
+
+let dakika=Math.floor((krono%3600)/60);
+
+let saniye=krono%60;
+
+
+
+document.getElementById("kronometre").innerHTML=
+
+saat.toString().padStart(2,"0")
+
++
+
+":"
+
++
+
+dakika.toString().padStart(2,"0")
+
++
+
+":"
+
++
+
+saniye.toString().padStart(2,"0");
+
+
+}
+
+
+
+
+
+</script>
+
+
+</body>
+
+</html>
