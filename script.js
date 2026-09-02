@@ -311,18 +311,19 @@ function hedefKaydet(){
 }
 function gorevEkleAc(){
 
-let alan = document.getElementById("gorevEkleAlan");
+    let alan = document.getElementById("gorevEkleAlan");
 
-if(alan.style.display == "none" || alan.style.display == ""){
+    if(!alan){
+        alert("alan bulunamadı");
+        return;
+    }
 
-alan.style.display = "block";
-
-}
-else{
-
-alan.style.display = "none";
-
-}
+    if(alan.style.display === "block"){
+        alan.style.display = "none";
+    }
+    else{
+        alan.style.display = "block";
+    }
 
 }
 
