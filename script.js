@@ -276,57 +276,37 @@ window.onload = function(){
     
     };
 
+
 function hedefEkleAc(){
 
-let alan = document.getElementById("hedefEkleAlan");
+    let alan = document.getElementById("hedefEkleAlan");
 
-if(alan.style.display=="block"){
+    if(alan.style.display === "none" || alan.style.display === ""){
 
-alan.style.display="none";
+        alan.style.display = "block";
 
-}
-else{
+    }else{
 
-alan.style.display="block";
+        alan.style.display = "none";
 
-}
+    }
 
 }
 
 
 function hedefKaydet(){
 
-let hedef=document.getElementById("yeniHedef").value.trim();
+    let hedef = document.getElementById("yeniHedef").value.trim();
 
-if(hedef==""){
-alert("Hedef boş bırakılamaz");
-return;
-}
+    if(hedef === ""){
+        alert("Hedef boş bırakılamaz");
+        return;
+    }
 
-localStorage.setItem("gunlukHedef",hedef);
+    localStorage.setItem("gunlukHedef", hedef);
 
-document.getElementById("hedefYazi").innerHTML=hedef;
+    document.getElementById("hedefYazi").innerHTML = hedef;
 
-alert("🎯 Günlük hedef kaydedildi");
-
-}
-
-function hedefYukle(){
-
-let hedef = localStorage.getItem("gunlukHedef");
-
-let alan = document.getElementById("hedefYazi");
-
-
-if(hedef && alan){
-
-alan.innerHTML = hedef;
+    alert("🎯 Günlük hedef kaydedildi");
 
 }
-
-}
-
-hedefYukle();
-
-
-
