@@ -22,7 +22,7 @@
 <h1>📅 Çalışma Programı</h1>
 
 <p class="subtitle">
-Hedeflerini planla, geçmişini unutma.
+Hedeflerini planla, geçmişini takip et.
 </p>
 
 
@@ -30,12 +30,11 @@ Hedeflerini planla, geçmişini unutma.
 
 <div class="box">
 
-<h2>📆 Bugünün Tarihi</h2>
+<h2>📆 Tarih</h2>
 
 <p id="tarih"></p>
 
 </div>
-
 
 
 
@@ -53,13 +52,11 @@ placeholder="Bugün ne yapacağım?">
 </textarea>
 
 
-
 <button onclick="hedefKaydet()">
 
 💾 Günlük Hedefi Kaydet
 
 </button>
-
 
 
 <p id="hedefMesaj"></p>
@@ -93,7 +90,6 @@ placeholder="Bugün ne yapacağım?">
 <p id="programMesaj"></p>
 
 
-
 </div>
 
 
@@ -112,7 +108,6 @@ placeholder="Bugün ne yapacağım?">
 
 
 </div>
-
 
 
 
@@ -159,17 +154,15 @@ let gunler=[
 
 
 
-
 function tarihGoster(){
 
 
-let tarih=new Date();
+let simdi=new Date();
 
 
-document.getElementById("tarih").innerHTML =
+document.getElementById("tarih").innerHTML=
 
-tarih.toLocaleDateString("tr-TR");
-
+simdi.toLocaleDateString("tr-TR");
 
 
 }
@@ -179,25 +172,23 @@ tarih.toLocaleDateString("tr-TR");
 
 
 
-
 function programOlustur(){
-
 
 
 let alan=document.getElementById("hafta");
 
 
-
-let mevcut =
+let mevcut=
 
 JSON.parse(localStorage.getItem("aktifProgram")) || {};
 
 
 
+alan.innerHTML="";
+
 
 
 gunler.forEach(function(gun){
-
 
 
 alan.innerHTML += `
@@ -209,17 +200,15 @@ alan.innerHTML += `
 <h3>📌 ${gun}</h3>
 
 
-
 <textarea
 
 id="${gun}"
 
-placeholder="${gun} hedefi">
+placeholder="${gun} hedefi...">
 
 ${mevcut[gun] || ""}
 
 </textarea>
-
 
 
 </div>
@@ -228,12 +217,14 @@ ${mevcut[gun] || ""}
 `;
 
 
-
 });
 
 
 
-let hedef =
+
+
+
+let eskiHedef=
 
 localStorage.getItem("gunlukHedef") || "";
 
@@ -241,11 +232,15 @@ localStorage.getItem("gunlukHedef") || "";
 
 document.getElementById("gunlukHedef").value=
 
-hedef;
+eskiHedef;
 
 
 
 }
+
+
+
+
 
 
 
@@ -287,6 +282,7 @@ document.getElementById("hedefMesaj").innerHTML=
 function programKaydet(){
 
 
+
 let program={};
 
 
@@ -299,15 +295,11 @@ program[gun]=
 document.getElementById(gun).value;
 
 
-
 });
 
 
 
 
-
-
-// aktif haftayı sakla
 
 
 localStorage.setItem(
@@ -323,19 +315,11 @@ JSON.stringify(program)
 
 
 
-
-// geçmişe ekle
-
-
-let gecmis =
+let gecmis=
 
 JSON.parse(localStorage.getItem("programGecmisi")) || [];
 
 
-
-
-
-let tarih=new Date();
 
 
 
@@ -344,7 +328,7 @@ let kayit={
 
 tarih:
 
-tarih.toLocaleDateString("tr-TR"),
+new Date().toLocaleDateString("tr-TR"),
 
 
 program:program
@@ -378,15 +362,14 @@ gecmisGoster();
 
 
 
-
-
 document.getElementById("programMesaj").innerHTML=
 
-"✅ Program kaydedildi";
-
+"✅ Haftalık program kaydedildi";
 
 
 }
+
+
 
 
 
@@ -415,12 +398,13 @@ alan.innerHTML="";
 
 
 
+
 if(liste.length==0){
 
 
 alan.innerHTML=
 
-"Henüz geçmiş program yok.";
+"Henüz kayıt yok.";
 
 
 return;
@@ -432,7 +416,9 @@ return;
 
 
 
-liste.forEach(function(x){
+
+
+liste.forEach(function(x,index){
 
 
 
@@ -446,17 +432,32 @@ alan.innerHTML += `
 <h3>📅 ${x.tarih}</h3>
 
 
+
 ${gunler.map(gun=>
 
 
-"<p><b>"+gun+":</b> "+
+`
 
-(x.program[gun] || "-")
+<p>
 
-+"</p>"
+<b>${gun}:</b>
 
+${x.program[gun] || "-"}
+
+</p>
+
+`
 
 ).join("")}
+
+
+
+
+<button onclick="programSil(${index})">
+
+🗑️ Kaydı Sil
+
+</button>
 
 
 
@@ -473,6 +474,48 @@ ${gunler.map(gun=>
 
 
 }
+
+
+
+
+
+
+
+
+function programSil(index){
+
+
+let liste=
+
+JSON.parse(localStorage.getItem("programGecmisi")) || [];
+
+
+
+if(confirm("Bu program silinsin mi?")){
+
+
+liste.splice(index,1);
+
+
+
+localStorage.setItem(
+
+"programGecmisi",
+
+JSON.stringify(liste)
+
+);
+
+
+
+gecmisGoster();
+
+
+}
+
+
+}
+
 
 
 
