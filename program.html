@@ -21,9 +21,23 @@
 
 <h1>📅 Çalışma Programı</h1>
 
+
 <p class="subtitle">
 Hedeflerini planla, düzenini takip et.
 </p>
+
+
+
+<div class="box">
+
+<h2>📆 Bugün</h2>
+
+<p id="tarih"></p>
+
+
+</div>
+
+
 
 
 
@@ -39,12 +53,20 @@ placeholder="Bugün ne yapacağım? Örn: 100 soru kimya, 50 matematik...">
 </textarea>
 
 
+
 <button onclick="hedefKaydet()">
-💾 Hedefi Kaydet
+
+💾 Günlük Hedefi Kaydet
+
 </button>
 
 
+
+<p id="hedefDurum"></p>
+
+
 </div>
+
 
 
 
@@ -57,12 +79,22 @@ placeholder="Bugün ne yapacağım? Örn: 100 soru kimya, 50 matematik...">
 <h2>📆 Haftalık Çizelge</h2>
 
 
-
 <div id="hafta"></div>
 
 
 
+<button onclick="programKaydet()">
+
+💾 Haftalık Programı Kaydet
+
+</button>
+
+
+<p id="programDurum"></p>
+
+
 </div>
+
 
 
 
@@ -76,7 +108,9 @@ placeholder="Bugün ne yapacağım? Örn: 100 soru kimya, 50 matematik...">
 
 
 
+
 </div>
+
 
 
 
@@ -89,21 +123,14 @@ placeholder="Bugün ne yapacağım? Örn: 100 soru kimya, 50 matematik...">
 <script>
 
 
-
-let gunler = [
+let gunler=[
 
 "Pazartesi",
-
 "Salı",
-
 "Çarşamba",
-
 "Perşembe",
-
 "Cuma",
-
 "Cumartesi",
-
 "Pazar"
 
 ];
@@ -111,19 +138,38 @@ let gunler = [
 
 
 
+
+function tarihGoster(){
+
+
+let simdi=new Date();
+
+
+document.getElementById("tarih").innerHTML=
+
+simdi.toLocaleDateString("tr-TR");
+
+
+}
+
+
+
+
+
+
+
 function programOlustur(){
 
 
-let alan =
-document.getElementById("hafta");
 
-
-alan.innerHTML="";
+let alan=document.getElementById("hafta");
 
 
 
-let kayit =
+let kayit=
+
 JSON.parse(localStorage.getItem("haftalikProgram")) || {};
+
 
 
 
@@ -138,7 +184,6 @@ alan.innerHTML += `
 
 
 <h3>📌 ${gun}</h3>
-
 
 
 <textarea
@@ -164,7 +209,20 @@ ${kayit[gun] || ""}
 
 
 
+let eskiHedef=
+
+localStorage.getItem("gunlukHedef") || "";
+
+
+
+document.getElementById("gunlukHedef").value=
+
+eskiHedef;
+
+
+
 }
+
 
 
 
@@ -173,7 +231,9 @@ ${kayit[gun] || ""}
 function hedefKaydet(){
 
 
-let hedef =
+
+let hedef=
+
 document.getElementById("gunlukHedef").value;
 
 
@@ -188,7 +248,9 @@ hedef
 
 
 
-alert("Günlük hedef kaydedildi.");
+document.getElementById("hedefDurum").innerHTML=
+
+"✅ Günlük hedef kaydedildi";
 
 
 }
@@ -198,7 +260,9 @@ alert("Günlük hedef kaydedildi.");
 
 
 
+
 function programKaydet(){
+
 
 
 let veri={};
@@ -208,12 +272,15 @@ let veri={};
 gunler.forEach(function(gun){
 
 
+
 veri[gun]=
+
 document.getElementById(gun).value;
 
 
 
 });
+
 
 
 
@@ -227,8 +294,10 @@ JSON.stringify(veri)
 
 
 
-alert("Haftalık program kaydedildi.");
 
+document.getElementById("programDurum").innerHTML=
+
+"✅ Haftalık program kaydedildi";
 
 
 }
@@ -236,21 +305,15 @@ alert("Haftalık program kaydedildi.");
 
 
 
+
+
+tarihGoster();
+
 programOlustur();
 
 
 
 </script>
-
-
-
-
-
-<button onclick="programKaydet()">
-
-💾 Haftalık Programı Kaydet
-
-</button>
 
 
 
