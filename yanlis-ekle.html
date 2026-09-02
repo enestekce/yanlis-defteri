@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>YKS Silici - Yeni Kayıt</title>
+<title>YKS Silkici - Yeni Kayıt</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -19,14 +19,16 @@
 <div class="container">
 
 
-<h1>Yeni Soru</h1>
+<h1>📚 Yeni Soru</h1>
 
 <p class="subtitle">
 Hatanı kaydet, tekrar etme.
 </p>
 
 
+
 <div class="box">
+
 
 
 <label>Sınav Türü</label>
@@ -43,7 +45,7 @@ Hatanı kaydet, tekrar etme.
 
 <label>Kaynak</label>
 
-<input id="kaynak" placeholder="Örn: Bilgi Sarmal">
+<input id="kaynak" placeholder="Kaynak adı">
 
 
 
@@ -74,7 +76,7 @@ Hatanı kaydet, tekrar etme.
 
 <label>Konu</label>
 
-<input id="konu" placeholder="Örn: Problemler">
+<input id="konu" placeholder="Konu adı">
 
 
 
@@ -92,6 +94,20 @@ Hatanı kaydet, tekrar etme.
 
 
 
+
+<label>Önem Seviyesi</label>
+
+<select id="onem">
+
+<option>⭐</option>
+<option>⭐⭐</option>
+<option>⭐⭐⭐</option>
+
+</select>
+
+
+
+
 <label>Kendime Not</label>
 
 <textarea id="not"
@@ -99,26 +115,35 @@ placeholder="Bu sorudan ne öğrendim?"></textarea>
 
 
 
+
 <label>
 📷 Soru Fotoğrafı
 </label>
+
 
 <input type="file" id="foto" accept="image/*">
 
 
 
+
+
 <button onclick="kaydet()">
+
 Kaydet
+
 </button>
+
 
 
 <button onclick="window.location.href='index.html'">
+
 Geri Dön
+
 </button>
 
 
-</div>
 
+</div>
 
 </div>
 
@@ -131,7 +156,8 @@ Geri Dön
 <script>
 
 
-let fotoBase64="";
+
+let fotoBase64 = "";
 
 
 
@@ -140,26 +166,29 @@ document
 .addEventListener("change",function(e){
 
 
-let dosya=e.target.files[0];
+let dosya = e.target.files[0];
 
 
 if(dosya){
 
 
-let okuyucu=new FileReader();
+let okuyucu = new FileReader();
+
 
 
 okuyucu.onload=function(){
 
-fotoBase64=okuyucu.result;
+fotoBase64 = okuyucu.result;
 
 }
+
 
 
 okuyucu.readAsDataURL(dosya);
 
 
 }
+
 
 
 });
@@ -172,7 +201,9 @@ okuyucu.readAsDataURL(dosya);
 function kaydet(){
 
 
-let veri={
+
+let veri = {
+
 
 
 sinav:
@@ -199,16 +230,23 @@ sebep:
 document.getElementById("sebep").value,
 
 
+onem:
+document.getElementById("onem").value,
+
+
 not:
 document.getElementById("not").value,
 
 
 foto:
-fotoBase64
+fotoBase64,
+
+
+tekrar:false
+
 
 
 };
-
 
 
 
@@ -220,8 +258,8 @@ kayitKaydet(veri);
 alert("Kayıt eklendi");
 
 
-window.location.href="yanlislarim.html";
 
+window.location.href="yanlislarim.html";
 
 }
 
