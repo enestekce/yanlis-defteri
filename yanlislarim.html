@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>YKS Silici - Yanlışlarım</title>
+<title>YKS Silkici - Yanlışlarım</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -21,25 +21,71 @@
 
 <h1>📚 Yanlışlarım</h1>
 
+
 <p class="subtitle">
-Kayıtlarını kontrol et
+Hatalarını incele ve düzelt.
 </p>
+
+
+
+<div class="box">
+
+
+<label>Sınav Filtrele</label>
+
+<select id="sinavFiltre" onchange="listele()">
+
+<option value="Hepsi">Hepsi</option>
+<option>TYT Deneme</option>
+<option>AYT Deneme</option>
+<option>Test Kitabı</option>
+
+</select>
+
+
+
+<label>Ders Filtrele</label>
+
+<select id="dersFiltre" onchange="listele()">
+
+<option value="Hepsi">Hepsi</option>
+<option>Türkçe</option>
+<option>Matematik</option>
+<option>Fizik</option>
+<option>Kimya</option>
+<option>Biyoloji</option>
+
+</select>
+
+
+</div>
+
 
 
 <div id="liste"></div>
 
 
+
+
 <button onclick="window.location.href='yanlis-ekle.html'">
-➕ Yeni Kayıt Ekle
+
+➕ Yeni Kayıt
+
 </button>
+
 
 
 <button onclick="window.location.href='index.html'">
+
 🏠 Ana Sayfa
+
 </button>
 
 
+
+
 </div>
+
 
 
 
@@ -50,66 +96,140 @@ Kayıtlarını kontrol et
 <script>
 
 
-let liste = document.getElementById("liste");
+
+function listele(){
+
+
+
+let alan =
+document.getElementById("liste");
+
+
+
+alan.innerHTML="";
+
 
 
 let kayitlar = kayitGetir();
 
 
 
-if(kayitlar.length === 0){
+let sinavSec =
+document.getElementById("sinavFiltre").value;
 
-liste.innerHTML = `
 
-<div class="box">
 
-<h2>Henüz kayıt yok</h2>
+let dersSec =
+document.getElementById("dersFiltre").value;
 
-<p>Yanlışlarını eklemeye başla.</p>
 
-</div>
-
-`;
-
-}
 
 
 
 kayitlar.forEach(function(x,index){
 
 
-liste.innerHTML += `
+
+if(
+(sinavSec!="Hepsi" && x.sinav!=sinavSec) ||
+(dersSec!="Hepsi" && x.ders!=dersSec)
+
+){
+
+return;
+
+}
+
+
+
+
+alan.innerHTML += `
 
 
 <div class="card">
 
 
+
 <h2>${x.ders}</h2>
 
 
-<p><b>Sınav:</b> ${x.sinav}</p>
 
-<p><b>Kaynak:</b> ${x.kaynak}</p>
-
-<p><b>Konu:</b> ${x.konu}</p>
-
-<p><b>Durum:</b> ${x.durum}</p>
-
-<p><b>Sebep:</b> ${x.sebep}</p>
-
-<p><b>Not:</b> ${x.not}</p>
+<p>
+<b>Sınav:</b> ${x.sinav}
+</p>
 
 
 
-${x.foto ? 
-`<img src="${x.foto}">`
+<p>
+<b>Kaynak:</b> ${x.kaynak}
+</p>
+
+
+
+<p>
+<b>Konu:</b> ${x.konu}
+</p>
+
+
+
+<p>
+<b>Durum:</b> ${x.durum}
+</p>
+
+
+
+<p>
+<b>Sebep:</b> ${x.sebep}
+</p>
+
+
+
+<p>
+<b>Önem:</b>
+${x.onem || "⭐"}
+</p>
+
+
+
+<p>
+<b>Not:</b>
+${x.not}
+</p>
+
+
+
+
+${x.tekrar ?
+
+"<p>✅ Tekrar edildi</p>"
+
 :
-""
+
+`<button onclick="tekrarYapildi(${index})">
+✅ Tekrar ettim
+</button>`
+
 }
 
 
 
+
+${x.foto ?
+
+`<img src="${x.foto}">`
+
+:
+
+""
+
+}
+
+
+
+
+
 <br>
+
 
 
 <button onclick="kayitSil(${index})">
@@ -119,49 +239,30 @@ ${x.foto ?
 </button>
 
 
+
 </div>
 
 
+
 `;
+
 
 
 });
 
 
 
-
-
-function kayitSil(index){
-
-
-let veriler = kayitGetir();
-
-
-veriler.splice(index,1);
-
-
-
-localStorage.setItem(
-
-"kayitlar_" + aktifKullanici,
-
-JSON.stringify(veriler)
-
-);
-
-
-
-alert("Kayıt silindi");
-
-
-window.location.reload();
-
-
 }
 
 
 
+
+listele();
+
+
+
 </script>
+
 
 
 </body>
