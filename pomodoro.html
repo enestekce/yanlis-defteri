@@ -566,272 +566,113 @@ saatGuncelle();
 
 
 
-// POMODORO SİSTEMİ
+// YENİ POMODORO SİSTEMİ
 
+let pomEnd = Number(localStorage.getItem("pomEnd")) || 0;
 
-let pomTimer=null;
-
-
-let pomDakika =
-Number(localStorage.getItem("pomDakika")) || 25;
-
-
-let pomSaniye =
-Number(localStorage.getItem("pomSaniye")) || 0;
-
-
-
-let pomBaslangic =
-Number(localStorage.getItem("pomBaslangic")) || null;
-
-
-
+let pomSure = Number(localStorage.getItem("pomSure")) || 1500;
 
 
 function gosterPom(){
 
+let kalan;
 
-document.getElementById("pomodoro").innerHTML =
 
-String(pomDakika).padStart(2,"0")
+if(pomEnd){
 
-+
+kalan = Math.max(
+0,
+Math.floor((pomEnd-Date.now())/1000)
+);
 
-":"
+}else{
 
-+
-
-String(pomSaniye).padStart(2,"0");
-
+kalan = pomSure;
 
 }
 
 
+let dakika = Math.floor(kalan/60);
+
+let saniye = kalan%60;
 
 
+document.getElementById("pomodoro").innerHTML =
+String(dakika).padStart(2,"0")
++
+":"
++
+String(saniye).padStart(2,"0");
+
+
+}
 
 
 
 function baslat(){
 
+if(!pomEnd){
 
-if(pomTimer) return;
-
-
-
-if(!pomBaslangic){
-
-pomBaslangic=Date.now();
+pomEnd = Date.now()+pomSure*1000;
 
 localStorage.setItem(
-"pomBaslangic",
-pomBaslangic
+"pomEnd",
+pomEnd
 );
 
 }
 
-
-
-pomTimer=setInterval(function(){
-
-
-pomSaniye--;
-
-
-
-if(pomSaniye<0){
-
-
-pomSaniye=59;
-
-pomDakika--;
-
-
 }
-
-
-
-if(pomDakika<=0 && pomSaniye<=0){
-
-
-pomBitir();
-
-
-return;
-
-
-}
-
-
-
-
-
-localStorage.setItem(
-"pomDakika",
-pomDakika
-);
-
-
-
-localStorage.setItem(
-"pomSaniye",
-pomSaniye
-);
-
-
-
-gosterPom();
-
-
-
-},1000);
-
-
-
-}
-
-
-
-
 
 
 
 function durdur(){
 
+if(pomEnd){
 
-clearInterval(pomTimer);
-
-
-pomTimer=null;
-
-
+pomSure =
+Math.max(
+0,
+Math.floor((pomEnd-Date.now())/1000)
+);
 
 }
 
 
+pomEnd=0;
+
+localStorage.removeItem("pomEnd");
 
 
+}
 
 
 
 function sifirla(){
 
-
 durdur();
 
-
-pomDakika =
-Number(document.getElementById("sure").value);
-
-
-
-pomSaniye=0;
-
-
-
-localStorage.setItem(
-"pomDakika",
-pomDakika
-);
-
-
-
-localStorage.setItem(
-"pomSaniye",
-pomSaniye
-);
-
+pomSure =
+Number(document.getElementById("sure").value)*60;
 
 
 gosterPom();
-
-
 
 }
-
-
-
-
-
-
-document
-.getElementById("sure")
-.addEventListener("change",function(){
-
-
-pomDakika=Number(this.value);
-
-pomSaniye=0;
-
-
-gosterPom();
-
-
-});
-
-
-
-
-
-function pomBitir(){
-
-
-clearInterval(pomTimer);
-
-
-pomTimer=null;
-
-
-localStorage.removeItem("pomBaslangic");
-
-
-
-pomSayisiArttir();
-
-
-
-let ses=new Audio(
-
-"https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg"
-
-);
-
-
-
-ses.play();
-
-
-
-alert("Pomodoro tamamlandı 🔥");
-
-
-
-pomDakika=
-Number(document.getElementById("sure").value);
-
-
-
-pomSaniye=0;
-
-
-gosterPom();
-
-
-
-}
-
-
-
-
-
-
-gosterPom();
 
 
 // KRONOMETRE SİSTEMİ
 
 
 let kronoTimer=null;
+
+
+
+
+// YENİ KRONOMETRE SİSTEMİ
+
+let kronoStart =
+Number(localStorage.getItem("kronoStart")) || 0;
 
 
 let kronoSure =
@@ -842,42 +683,41 @@ Number(localStorage.getItem("kronoSure")) || 0;
 function kronoGoster(){
 
 
-let saat=Math.floor(kronoSure/3600);
+let toplam = kronoSure;
 
 
-let dakika=Math.floor((kronoSure%3600)/60);
+if(kronoStart){
 
-
-let saniye=kronoSure%60;
-
-
-
-document.getElementById("kronometre").innerHTML=
-
-
-String(saat).padStart(2,"0")
-
-+
-
-":"
-
-+
-
-String(dakika).padStart(2,"0")
-
-+
-
-":"
-
-+
-
-String(saniye).padStart(2,"0");
-
-
+toplam += Math.floor(
+(Date.now()-kronoStart)/1000
+);
 
 }
 
 
+
+let saat = Math.floor(toplam/3600);
+
+let dakika = Math.floor((toplam%3600)/60);
+
+let saniye = toplam%60;
+
+
+
+document.getElementById("kronometre").innerHTML =
+
+String(saat).padStart(2,"0")
++
+":"
++
+String(dakika).padStart(2,"0")
++
+":"
++
+String(saniye).padStart(2,"0");
+
+
+}
 
 
 
@@ -885,33 +725,22 @@ String(saniye).padStart(2,"0");
 function kronoBaslat(){
 
 
-if(kronoTimer) return;
+if(!kronoStart){
 
 
-
-kronoTimer=setInterval(function(){
-
-
-kronoSure++;
+kronoStart = Date.now();
 
 
 localStorage.setItem(
-"kronoSure",
-kronoSure
+"kronoStart",
+kronoStart
 );
-
-
-kronoGoster();
-
-
-
-},1000);
-
 
 
 }
 
 
+}
 
 
 
@@ -920,15 +749,33 @@ kronoGoster();
 function kronoDurdur(){
 
 
-clearInterval(kronoTimer);
+if(kronoStart){
 
 
-kronoTimer=null;
+kronoSure += Math.floor(
+(Date.now()-kronoStart)/1000
+);
 
+
+kronoStart=0;
+
+
+localStorage.removeItem(
+"kronoStart"
+);
+
+
+localStorage.setItem(
+"kronoSure",
+kronoSure
+);
 
 
 }
 
+
+
+}
 
 
 
@@ -953,18 +800,6 @@ kronoGoster();
 
 
 }
-
-
-
-
-
-
-
-
-kronoGoster();
-
-
-
 
 
 
