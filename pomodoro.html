@@ -11,512 +11,220 @@
 <link rel="stylesheet" href="style.css">
 
 <style>
-.fullscreenBox{
-
-position:fixed !important;
-
-top:0 !important;
-left:0 !important;
-
-width:100vw !important;
-height:100vh !important;
-
-z-index:999999 !important;
-
-background:#08111f !important;
-
-display:flex !important;
-
-flex-direction:column !important;
-
-justify-content:center !important;
-
-align-items:center !important;
-
-padding:20px !important;
-
-margin:0 !important;
-
-box-sizing:border-box !important;
-
-overflow:hidden !important;
-
+/* Butonların tıklanabilirlik ayarları */
+button {
+    cursor: pointer !important;
+    position: relative !important;
+    z-index: 10 !important;
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
 }
 
-
-
-.fullscreenBox h2{
-
-font-size:40px !important;
-
-margin-bottom:20px !important;
-
-}
-  .cikis{
-
-display:none;
-
-position:absolute;
-
-right:20px;
-
-top:20px;
-
-width:45px;
-
-height:45px;
-
-border-radius:50%;
-
-border:none;
-
-background:#334155;
-
-color:white;
-
-font-size:28px;
-
-z-index:999999;
-
+/* SAYAÇ VE METİN RENK İYİLEŞTİRMELERİ */
+/* Canlı Saat, Pomodoro ve Kronometre dijital sayı renkleri */
+#saat, #pomodoro, #kronometre, .buyukSaat {
+    color: #38bdf8 !important; /* Parlak Açık Mavi / Turkuaz */
+    text-shadow: 0 0 15px rgba(56, 189, 248, 0.4) !important; /* Hafif gece parlaması */
+    font-weight: 800 !important;
 }
 
-
-.fullscreenBox .cikis{
-
-display:block;
-
-}
-  
-  
-
-
-
-
-.fullscreenBox h1{
-
-font-size:70px !important;
-
-letter-spacing:3px !important;
-
-font-weight:900 !important;
-
-margin:15px !important;
-
-}
-  .fullscreenBox{
-
-width:100% !important;
-
-height:100% !important;
-
-max-width:none !important;
-
+/* Başlıklar (Canlı Saat, Pomodoro, Kronometre h2 başlıkları) */
+.box h2 {
+    color: #f1f5f9 !important; /* Açık Parlak Beyaz/Gri */
+    font-size: 24px;
 }
 
-
-
-
-
-.fullscreenBox button{
-
-font-size:22px !important;
-
-padding:15px 30px !important;
-
-margin:8px !important;
-
+/* Alt Açıklamalar ve Tarih */
+#tarih, .subtitle, .kartBaslik {
+    color: #94a3b8 !important; /* Açık Gri */
 }
 
-
-
-
-
-.fullscreenBox select{
-
-font-size:22px !important;
-
-padding:10px !important;
-
-margin:10px !important;
-
+/* Tam Ekran Modu Stilleri */
+.fullscreenBox {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 999999 !important;
+    background: #08111f !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 20px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
 }
 
-
-
-
-.fullscreenBox .buyut{
-
-display:none !important;
-
+.fullscreenBox h2 {
+    font-size: 36px !important;
+    margin-bottom: 20px !important;
+    color: #f1f5f9 !important;
 }
 
-
-/* büyütme butonu */
-
-.buyut{
-
-position:absolute;
-
-right:15px;
-
-top:15px;
-
-width:45px;
-
-height:40px;
-
-padding:5px;
-
-background:#334155;
-
+.fullscreenBox h1, .fullscreenBox .buyukSaat {
+    font-size: 80px !important;
+    letter-spacing: 4px !important;
+    font-weight: 900 !important;
+    margin: 15px !important;
+    color: #38bdf8 !important;
+    text-shadow: 0 0 25px rgba(56, 189, 248, 0.6) !important;
 }
 
-
-.odak{
-
-position:relative;
-
+.cikis {
+    display: none;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    background: #334155;
+    color: white;
+    font-size: 28px;
+    z-index: 999999;
 }
 
-
-/* normal saat */
-.buyukSaat{
-
-font-size:70px;
-letter-spacing:5px;
-font-weight:800;
-
+.fullscreenBox .cikis {
+    display: block;
 }
 
-
-.fullscreenBox .buyukSaat{
-
-font-size:70px !important;
-
+.fullscreenBox button {
+    font-size: 22px !important;
+    padding: 15px 30px !important;
+    margin: 8px !important;
 }
 
-
-
-
-
-
-
-.kartBaslik{
-
-color:#94a3b8;
-
+.fullscreenBox select {
+    font-size: 22px !important;
+    padding: 10px !important;
+    margin: 10px !important;
 }
 
-
-#kayitlar .card{
-
-margin-top:15px;
-
+.fullscreenBox .buyut {
+    display: none !important;
 }
 
+/* Büyütme Butonu */
+.buyut {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 45px;
+    height: 40px;
+    padding: 5px;
+    background: #334155;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+}
 
+.odak {
+    position: relative;
+}
+
+/* Normal Saat Boyutu */
+.buyukSaat {
+    font-size: 65px;
+    letter-spacing: 4px;
+    font-weight: 800;
+}
+
+#kayitlar .card {
+    margin-top: 15px;
+}
 </style>
 
 </head>
 
-
-
 <body>
-
 
 <div class="container">
 
-
-
 <h1>⏱️ YKS Silkici</h1>
 
-
 <p class="subtitle">
-
 Odaklan, çalış, ilerle.
-
 </p>
 
-
-
-
 <!-- SAAT -->
-
 <div class="box odak" id="saatBox">
+    <button type="button" class="buyut" onclick="tamEkran('saatBox')">⛶</button>
+    <button type="button" class="cikis" onclick="tamEkran('saatBox')">×</button>
 
-
-<button class="buyut" onclick="tamEkran('saatBox')">
-
-⛶
-
-</button>
-
-  <button class="cikis" onclick="tamEkran('saatBox')">
-
-×
-
-</button>
-
-
-<h2>🕒 Canlı Saat</h2>
-
-
-<h1 id="saat" class="buyukSaat">
-
-00:00:00
-
-</h1>
-
-
-<p id="tarih"></p>
-
-
+    <h2>🕒 Canlı Saat</h2>
+    <h1 id="saat" class="buyukSaat">00:00:00</h1>
+    <p id="tarih"></p>
 </div>
-
-
-
-
 
 <!-- POMODORO -->
-
 <div class="box odak" id="pomBox">
+    <button type="button" class="buyut" onclick="tamEkran('pomBox')">⛶</button>
+    <button type="button" class="cikis" onclick="tamEkran('pomBox')">×</button>
 
+    <h2>🔥 Pomodoro</h2>
 
-<button class="buyut" onclick="tamEkran('pomBox')">
+    <select id="sure" onchange="pomSureDegisti()">
+        <option value="5">5 Dakika</option>
+        <option value="10">10 Dakika</option>
+        <option value="15">15 Dakika</option>
+        <option value="25" selected>25 Dakika</option>
+        <option value="30">30 Dakika</option>
+        <option value="45">45 Dakika</option>
+        <option value="60">60 Dakika</option>
+    </select>
 
-⛶
+    <h1 id="pomodoro">25:00</h1>
 
-</button>
-<button class="cikis" onclick="tamEkran('pomBox')">
-
-×
-
-</button>
-
-
-<h2>🔥 Pomodoro</h2>
-
-
-<select id="sure" onchange="pomSureDegisti()">
-
-
-<option value="5">5 Dakika</option>
-
-<option value="10">10 Dakika</option>
-
-<option value="15">15 Dakika</option>
-
-<option value="25" selected>25 Dakika</option>
-
-<option value="30">30 Dakika</option>
-
-<option value="45">45 Dakika</option>
-
-<option value="60">60 Dakika</option>
-
-
-</select>
-
-
-
-<h1 id="pomodoro">
-
-25:00
-
-</h1>
-
-
-
-<button onclick="baslat()">
-
-▶ Başlat
-
-</button>
-
-
-<button onclick="durdur()">
-
-⏸ Durdur
-
-</button>
-
-
-<button onclick="sifirla()">
-
-🔄 Sıfırla
-
-</button>
-
-
+    <button type="button" onclick="baslat()">▶ Başlat</button>
+    <button type="button" onclick="durdur()">⏸ Durdur</button>
+    <button type="button" onclick="sifirla()">🔄 Sıfırla</button>
 </div>
-
 
 <!-- KRONOMETRE -->
-
 <div class="box odak" id="kronoBox">
+    <button type="button" class="buyut" onclick="tamEkran('kronoBox')">⛶</button>
+    <button type="button" class="cikis" onclick="tamEkran('kronoBox')">×</button>
 
+    <h2>⏲️ Kronometre</h2>
+    <h1 id="kronometre">00:00:00</h1>
 
-<button class="buyut" onclick="tamEkran('kronoBox')">
-
-⛶
-
-</button>
-  
-  <button class="cikis" onclick="tamEkran('kronoBox')">
-
-×
-
-</button>
-
-
-
-<h2>⏲️ Kronometre</h2>
-
-
-<h1 id="kronometre">
-
-00:00:00
-
-</h1>
-
-
-
-
-<button onclick="kronoBaslat()">
-
-▶ Başlat
-
-</button>
-
-
-
-<button onclick="kronoDurdur()">
-
-⏸ Durdur
-
-</button>
-
-
-
-<button onclick="kronoSifirla()">
-
-🔄 Sıfırla
-
-</button>
-
-
-
-<button onclick="kronoKaydet()">
-
-💾 Çalışmayı Kaydet
-
-</button>
-
-
-
+    <button type="button" onclick="kronoBaslat()">▶ Başlat</button>
+    <button type="button" onclick="kronoDurdur()">⏸ Durdur</button>
+    <button type="button" onclick="kronoSifirla()">🔄 Sıfırla</button>
+    <button type="button" onclick="kronoKaydet()">💾 Çalışmayı Kaydet</button>
 </div>
-
-
-
-
 
 <!-- İSTATİSTİK ÖZET -->
-
 <div class="box">
-
-
-<h2>📊 Bugünkü Çalışma</h2>
-
-
-<div class="stats">
-
-
-<div>
-
-⏱️ Dakika
-
-<br>
-
-<b id="bugunDakika">
-
-0
-
-</b>
-
+    <h2>📊 Bugünkü Çalışma</h2>
+    <div class="stats">
+        <div>
+            ⏱️ Dakika<br>
+            <b id="bugunDakika">0</b>
+        </div>
+        <div>
+            🔥 Pomodoro<br>
+            <b id="pomSayisi">0</b>
+        </div>
+        <div>
+            📚 Toplam<br>
+            <b id="toplamDakika">0</b>
+        </div>
+    </div>
 </div>
-
-
-
-
-<div>
-
-🔥 Pomodoro
-
-<br>
-
-<b id="pomSayisi">
-
-0
-
-</b>
-
-</div>
-
-
-
-
-<div>
-
-📚 Toplam
-
-<br>
-
-<b id="toplamDakika">
-
-0
-
-</b>
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
 
 <!-- KAYITLAR -->
-
-
 <div class="box">
-
-
-<h2>📅 Çalışma Geçmişi</h2>
-
-
-<div id="kayitlar">
-
+    <h2>📅 Çalışma Geçmişi</h2>
+    <div id="kayitlar"></div>
 </div>
 
-
-</div>
-
-
-
-
-
-<button onclick="window.location.href='index.html'">
-
-🏠 Ana Sayfa
-
-</button>
-
-
+<button type="button" onclick="window.location.href='index.html'">🏠 Ana Sayfa</button>
 
 </div>
 
@@ -526,13 +234,14 @@ Odaklan, çalış, ilerle.
 // ==========================================
 
 function tamEkran(id) {
-    let kutu = document.getElementById(id);
-    kutu.classList.toggle("fullscreenBox");
-}
-
-// Bildirim izni isteği (Mobil ve PWA uyumu için)
-if ("Notification" in window && Notification.permission !== "granted" && Notification.permission !== "denied") {
-    Notification.requestPermission();
+    try {
+        var kutu = document.getElementById(id);
+        if (kutu) {
+            kutu.classList.toggle("fullscreenBox");
+        }
+    } catch(e) {
+        console.error("Tam ekran hatasi:", e);
+    }
 }
 
 // ==========================================
@@ -540,58 +249,74 @@ if ("Notification" in window && Notification.permission !== "granted" && Notific
 // ==========================================
 
 function saatGuncelle() {
-    let simdi = new Date();
-    document.getElementById("saat").innerHTML = simdi.toLocaleTimeString("tr-TR");
-    document.getElementById("tarih").innerHTML = simdi.toLocaleDateString("tr-TR");
+    try {
+        var simdi = new Date();
+        var saatElem = document.getElementById("saat");
+        var tarihElem = document.getElementById("tarih");
+        if (saatElem) saatElem.innerText = simdi.toLocaleTimeString("tr-TR");
+        if (tarihElem) tarihElem.innerText = simdi.toLocaleDateString("tr-TR");
+    } catch(e) {}
 }
 
 // ==========================================
-// 3. GELİŞMİŞ POMODORO SİSTEMİ (Arka Plan Destekli)
+// 3. POMODORO SİSTEMİ
 // ==========================================
 
-let pomEnd = Number(localStorage.getItem("pomEnd")) || 0;
-let pomSure = Number(localStorage.getItem("pomSure")) || 1500; // Saniye cinsinden
-let pomTamamlandiMi = localStorage.getItem("pomTamamlandiMi") === "true";
+var pomEnd = Number(localStorage.getItem("pomEnd")) || 0;
+var pomSure = Number(localStorage.getItem("pomSure")) || 1500;
+var pomTamamlandiMi = localStorage.getItem("pomTamamlandiMi") === "true";
 
-// Pomodoro Süresi Değiştiğinde
 function pomSureDegisti() {
     if (!pomEnd) {
-        let secilenDk = Number(document.getElementById("sure").value);
-        pomSure = secilenDk * 60;
-        localStorage.setItem("pomSure", pomSure);
-        gosterPom();
+        var selectElem = document.getElementById("sure");
+        if (selectElem) {
+            var secilenDk = Number(selectElem.value) || 25;
+            pomSure = secilenDk * 60;
+            localStorage.setItem("pomSure", pomSure);
+            gosterPom();
+        }
     }
 }
 
 function gosterPom() {
-    let kalan;
+    var kalan;
 
-    if (pomEnd) {
-        // Bitiş zamanı üzerinden kalan saniyeyi hesapla
+    if (pomEnd > 0) {
         kalan = Math.max(0, Math.ceil((pomEnd - Date.now()) / 1000));
-        
-        // Süre bittiğinde
         if (kalan === 0 && !pomTamamlandiMi) {
             pomTamamlandi();
+            return;
         }
     } else {
-        kalan = pomSure;
+        kalan = pomSure > 0 ? pomSure : 1500;
     }
 
-    let dakika = Math.floor(kalan / 60);
-    let saniye = kalan % 60;
+    var dakika = Math.floor(kalan / 60);
+    var saniye = kalan % 60;
 
-    document.getElementById("pomodoro").innerHTML =
-        String(dakika).padStart(2, "0") + ":" + String(saniye).padStart(2, "0");
+    var pomElem = document.getElementById("pomodoro");
+    if (pomElem) {
+        pomElem.innerText =
+            String(dakika).padStart(2, "0") + ":" + String(saniye).padStart(2, "0");
+    }
 }
 
 function baslat() {
+    try {
+        if ("Notification" in window && Notification.permission === "default") {
+            Notification.requestPermission().catch(function(){});
+        }
+    } catch(e) {}
+
     if (pomTamamlandiMi) {
         sifirla();
     }
     
     if (!pomEnd) {
-        // Şu anki zaman + kalan süre = Bitiş Zamanı
+        var selectElem = document.getElementById("sure");
+        if ((!pomSure || pomSure <= 0) && selectElem) {
+            pomSure = (Number(selectElem.value) || 25) * 60;
+        }
         pomEnd = Date.now() + pomSure * 1000;
         localStorage.setItem("pomEnd", pomEnd);
         pomTamamlandiMi = false;
@@ -601,8 +326,7 @@ function baslat() {
 }
 
 function durdur() {
-    if (pomEnd) {
-        // Durdurulduğunda kalan süreyi hesapla ve kaydet
+    if (pomEnd > 0) {
         pomSure = Math.max(0, Math.ceil((pomEnd - Date.now()) / 1000));
         localStorage.setItem("pomSure", pomSure);
         pomEnd = 0;
@@ -618,7 +342,8 @@ function sifirla() {
     pomTamamlandiMi = false;
     localStorage.setItem("pomTamamlandiMi", "false");
 
-    let secilenDk = Number(document.getElementById("sure").value);
+    var selectElem = document.getElementById("sure");
+    var secilenDk = selectElem ? (Number(selectElem.value) || 25) : 25;
     pomSure = secilenDk * 60;
     localStorage.setItem("pomSure", pomSure);
     
@@ -628,72 +353,73 @@ function sifirla() {
 function pomTamamlandi() {
     pomEnd = 0;
     localStorage.removeItem("pomEnd");
-    pomSure = Number(document.getElementById("sure").value) * 60;
+    
+    var selectElem = document.getElementById("sure");
+    pomSure = (selectElem ? (Number(selectElem.value) || 25) : 25) * 60;
     localStorage.setItem("pomSure", pomSure);
     
     pomTamamlandiMi = true;
     localStorage.setItem("pomTamamlandiMi", "true");
 
-    // Pomodoro sayısını artır
     pomSayisiArttir();
-
-    // Sesli Uyarı
     sesCal();
 
-    // Bildirim Gönder
-    if ("Notification" in window && Notification.permission === "granted") {
-        new Notification("YKS Silkici", {
-            body: "🔥 Tebrikler! Bir Pomodoro oturumunu başarıyla tamamladın.",
-            icon: "https://cdn-icons-png.flaticon.com/512/869/869636.png"
-        });
-    }
+    try {
+        if ("Notification" in window && Notification.permission === "granted") {
+            new Notification("YKS Silkici", {
+                body: "🔥 Tebrikler! Bir Pomodoro oturumunu başarıyla tamamladın."
+            });
+        }
+    } catch(e) {}
 
     setTimeout(function() {
         alert("🎉 Pomodoro Süresi Bitti! Harika bir çalışma çıkardın 💪");
     }, 100);
 }
 
-// Tamamlandığında basit bir bip sesi çıkarma fonksiyonu
 function sesCal() {
     try {
-        let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        let osc = audioCtx.createOscillator();
-        let gain = audioCtx.createGain();
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.type = "sine";
-        osc.frequency.value = 587.33; // D5 notası
-        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 1);
-    } catch(e) {
-        // Web Audio API desteklenmiyorsa veya kısıtlıysa sessiz geç
-    }
+        var AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (AudioCtx) {
+            var audioCtx = new AudioCtx();
+            var osc = audioCtx.createOscillator();
+            var gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.type = "sine";
+            osc.frequency.value = 587.33;
+            gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 1);
+        }
+    } catch(e) {}
 }
 
 // ==========================================
-// 4. GELİŞMİŞ KRONOMETRE SİSTEMİ (Arka Plan Destekli)
+// 4. KRONOMETRE SİSTEMİ
 // ==========================================
 
-let kronoStart = Number(localStorage.getItem("kronoStart")) || 0;
-let kronoSure = Number(localStorage.getItem("kronoSure")) || 0; // Biriken toplam saniye
+var kronoStart = Number(localStorage.getItem("kronoStart")) || 0;
+var kronoSure = Number(localStorage.getItem("kronoSure")) || 0;
 
 function kronoGoster() {
-    let toplam = kronoSure;
+    var toplam = kronoSure;
 
-    if (kronoStart) {
-        // Geçen süreyi milisaniyeden saniyeye çevirip ekle
+    if (kronoStart > 0) {
         toplam += Math.floor((Date.now() - kronoStart) / 1000);
     }
 
-    let saat = Math.floor(toplam / 3600);
-    let dakika = Math.floor((toplam % 3600) / 60);
-    let saniye = toplam % 60;
+    var saat = Math.floor(toplam / 3600);
+    var dakika = Math.floor((toplam % 3600) / 60);
+    var saniye = toplam % 60;
 
-    document.getElementById("kronometre").innerHTML =
-        String(saat).padStart(2, "0") + ":" +
-        String(dakika).padStart(2, "0") + ":" +
-        String(saniye).padStart(2, "0");
+    var kronoElem = document.getElementById("kronometre");
+    if (kronoElem) {
+        kronoElem.innerText =
+            String(saat).padStart(2, "0") + ":" +
+            String(dakika).padStart(2, "0") + ":" +
+            String(saniye).padStart(2, "0");
+    }
 }
 
 function kronoBaslat() {
@@ -705,7 +431,7 @@ function kronoBaslat() {
 }
 
 function kronoDurdur() {
-    if (kronoStart) {
+    if (kronoStart > 0) {
         kronoSure += Math.floor((Date.now() - kronoStart) / 1000);
         kronoStart = 0;
         localStorage.removeItem("kronoStart");
@@ -727,9 +453,8 @@ function kronoSifirla() {
 // ==========================================
 
 function kronoKaydet() {
-    // Aktif çalışan kronometre varsa durdurup hesapla
-    let kaydedilecekSure = kronoSure;
-    if (kronoStart) {
+    var kaydedilecekSure = kronoSure;
+    if (kronoStart > 0) {
         kaydedilecekSure += Math.floor((Date.now() - kronoStart) / 1000);
     }
 
@@ -738,8 +463,14 @@ function kronoKaydet() {
         return;
     }
 
-    let liste = JSON.parse(localStorage.getItem("calismaKayitlari")) || [];
-    let tarih = new Date().toLocaleDateString("tr-TR");
+    var liste = [];
+    try {
+        liste = JSON.parse(localStorage.getItem("calismaKayitlari")) || [];
+    } catch(e) {
+        liste = [];
+    }
+    
+    var tarih = new Date().toLocaleDateString("tr-TR");
 
     liste.push({
         tarih: tarih,
@@ -748,7 +479,6 @@ function kronoKaydet() {
 
     localStorage.setItem("calismaKayitlari", JSON.stringify(liste));
 
-    // Kronometreyi sıfırla
     kronoSifirla();
 
     alert("Çalışma kaydedildi 💪");
@@ -758,28 +488,38 @@ function kronoKaydet() {
 }
 
 function kayitGoster() {
-    let alan = document.getElementById("kayitlar");
-    let liste = JSON.parse(localStorage.getItem("calismaKayitlari")) || [];
+    var alan = document.getElementById("kayitlar");
+    if (!alan) return;
+
+    var liste = [];
+    try {
+        liste = JSON.parse(localStorage.getItem("calismaKayitlari")) || [];
+    } catch(e) {
+        liste = [];
+    }
 
     alan.innerHTML = "";
 
-    // Son eklenenler üstte gözüksün
     liste.slice().reverse().forEach(function(x, index) {
-        let orjinalIndex = liste.length - 1 - index;
-        let dakika = Math.floor(x.sure / 60);
+        var orjinalIndex = liste.length - 1 - index;
+        var dakika = Math.floor(x.sure / 60);
 
         alan.innerHTML += `
             <div class="card">
                 <p>📅 ${x.tarih}</p>
                 <p>⏱️ ${dakika} dakika çalışıldı</p>
-                <button onclick="kayitSil(${orjinalIndex})">🗑️ Sil</button>
+                <button type="button" onclick="kayitSil(${orjinalIndex})">🗑️ Sil</button>
             </div>
         `;
     });
 }
 
 function kayitSil(index) {
-    let liste = JSON.parse(localStorage.getItem("calismaKayitlari")) || [];
+    var liste = [];
+    try {
+        liste = JSON.parse(localStorage.getItem("calismaKayitlari")) || [];
+    } catch(e) {}
+    
     liste.splice(index, 1);
     localStorage.setItem("calismaKayitlari", JSON.stringify(liste));
 
@@ -788,58 +528,64 @@ function kayitSil(index) {
 }
 
 function pomSayisiArttir() {
-    let sayi = Number(localStorage.getItem("pomSayisi")) || 0;
+    var sayi = Number(localStorage.getItem("pomSayisi")) || 0;
     sayi++;
     localStorage.setItem("pomSayisi", sayi);
     istatistikGuncelle();
 }
 
 function istatistikGuncelle() {
-    let liste = JSON.parse(localStorage.getItem("calismaKayitlari")) || [];
-    let bugun = new Date().toLocaleDateString("tr-TR");
+    var liste = [];
+    try {
+        liste = JSON.parse(localStorage.getItem("calismaKayitlari")) || [];
+    } catch(e) {}
 
-    let toplam = 0;
-    let bugunToplam = 0;
+    var bugun = new Date().toLocaleDateString("tr-TR");
+
+    var toplam = 0;
+    var bugunToplam = 0;
 
     liste.forEach(function(x) {
-        let dakika = Math.floor(x.sure / 60);
+        var dakika = Math.floor(x.sure / 60);
         toplam += dakika;
         if (x.tarih === bugun) {
             bugunToplam += dakika;
         }
     });
 
-    document.getElementById("bugunDakika").innerHTML = bugunToplam;
-    document.getElementById("toplamDakika").innerHTML = toplam;
-    document.getElementById("pomSayisi").innerHTML = localStorage.getItem("pomSayisi") || 0;
+    var bDakikaElem = document.getElementById("bugunDakika");
+    var tDakikaElem = document.getElementById("toplamDakika");
+    var pSayisiElem = document.getElementById("pomSayisi");
+
+    if (bDakikaElem) bDakikaElem.innerText = bugunToplam;
+    if (tDakikaElem) tDakikaElem.innerText = toplam;
+    if (pSayisiElem) pSayisiElem.innerText = localStorage.getItem("pomSayisi") || 0;
 }
 
 // ==========================================
-// 6. ANA ZAMANLAYICI DÖNGÜSÜ VE ARKA PLAN SENKRONİZASYONU
+// 6. DÖNGÜ VE ARKA PLAN SENKRONİZASYONU
 // ==========================================
 
-function genelDöngü() {
+function genelDongu() {
     saatGuncelle();
     gosterPom();
     kronoGoster();
 }
 
-// Ekranda 1 saniyelik aralıklarla güncelleme yap
-setInterval(genelDöngü, 1000);
+setInterval(genelDongu, 1000);
 
-// Kullanıcı arka plandan uygulamaya geri döndüğünde zamanı anında eşitle
 document.addEventListener("visibilitychange", function() {
     if (!document.hidden) {
-        genelDöngü();
+        genelDongu();
     }
 });
 
 window.addEventListener("focus", function() {
-    genelDöngü();
+    genelDongu();
 });
 
-// Sayfa ilk yüklendiğinde çalıştır
-genelDöngü();
+// Sayfa açılışında çalıştır
+genelDongu();
 kayitGoster();
 istatistikGuncelle();
 </script>
