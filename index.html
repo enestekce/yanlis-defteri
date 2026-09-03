@@ -2,201 +2,123 @@
 <html lang="tr">
 
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<title>YKS Silkici Pro</title>
-
-<!-- Modern Font Desteği -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YKS Silkici</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- ÜST SABİT MODERN SEKME MENÜSÜ -->
-<header class="app-header">
-    <div class="brand">
-        <span class="logo-icon">🚀</span>
-        <span class="brand-name">YKS Silkici</span>
-    </div>
+    <div class="container">
 
-    <!-- Üst Sekme Navigasyonu -->
-    <nav class="tab-nav">
-        <button class="tab-btn active" onclick="sekmeDegistir(this)">
-            <span class="tab-icon">🏠</span>
-            <span class="tab-label">Panel</span>
-        </button>
-        <button class="tab-btn" onclick="git('yanlis-ekle.html')">
-            <span class="tab-icon">➕</span>
-            <span class="tab-label">Soru Ekle</span>
-        </button>
-        <button class="tab-btn" onclick="git('yanlislarim.html')">
-            <span class="tab-icon">📚</span>
-            <span class="tab-label">Yanlışlarım</span>
-        </button>
-        <button class="tab-btn" onclick="git('istatistik.html')">
-            <span class="tab-icon">📊</span>
-            <span class="tab-label">İstatistik</span>
-        </button>
-        <button class="tab-btn" onclick="git('program.html')">
-            <span class="tab-icon">📅</span>
-            <span class="tab-label">Program</span>
-        </button>
-        <button class="tab-btn" onclick="git('pomodoro.html')">
-            <span class="tab-icon">⏱️</span>
-            <span class="tab-label">Pomodoro</span>
-        </button>
-    </nav>
-</header>
+        <h1>🚀 YKS Silkici</h1>
 
-<main class="main-content">
+        <p class="subtitle">
+            Yanlışlarını analiz et, netlerini yükselt.
+        </p>
 
-    <!-- CANLI YKS GERİ SAYIM KARTI -->
-    <div class="yks-countdown-card">
-        <div class="countdown-title">⏳ YKS 2027 GERİ SAYIM</div>
-        <div class="countdown-timer">
-            <div class="time-box">
-                <span id="yksGun">00</span>
-                <small>Gün</small>
-            </div>
-            <div class="time-box">
-                <span id="yksSaat">00</span>
-                <small>Saat</small>
-            </div>
-            <div class="time-box">
-                <span id="yksDakika">00</span>
-                <small>Dakika</small>
-            </div>
-            <div class="time-box">
-                <span id="yksSaniye">00</span>
-                <small>Saniye</small>
-            </div>
-        </div>
-    </div>
-
-    <!-- KULLANICI SEÇİM ALANI -->
-    <div id="userSelect" class="card-glass">
-        <h2>👤 Profil Seçin</h2>
-        <p class="section-desc">Kişisel yanlış defterinizi ve istatistiklerinizi yükleyin.</p>
-        <div class="user-btn-grid">
-            <button class="btn-profile" onclick="giris('Enes')">
-                <span class="avatar">👨‍🎓</span>
-                <span>Enes</span>
+        <div id="userSelect" class="box">
+            <h2>Kullanıcı seç</h2>
+            <button onclick="giris('Enes')">
+                👤 Enes
             </button>
-            <button class="btn-profile" onclick="giris('Şahan')">
-                <span class="avatar">👨‍🎓</span>
-                <span>Şahan</span>
+            <button onclick="giris('Şahan')">
+                👤 Şahan
             </button>
         </div>
-    </div>
 
-    <!-- ANA PANEL -->
-    <div id="mainPanel" class="hidden">
+        <div id="mainPanel" class="hidden">
 
-        <div class="welcome-banner">
             <h2 id="hosgeldin"></h2>
-            <p class="subtitle">Hedef derece. Çalışmaya devam!</p>
-        </div>
 
-        <!-- İSTATİSTİK KARTLARI (PRO GRID) -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon">📚</div>
-                <div class="stat-info">
-                    <span class="stat-title">Toplam Kayıt</span>
-                    <b id="toplam" class="stat-value">0</b>
+            <div class="stats">
+                <div class="statCard">
+                    📚 Toplam Kayıt
+                    <br>
+                    <b id="toplam">0</b>
+                </div>
+
+                <div class="statCard">
+                    ❌ Yanlış
+                    <br>
+                    <b id="yanlis">0</b>
+                </div>
+
+                <div class="statCard">
+                    ⬜ Boş
+                    <br>
+                    <b id="bos">0</b>
+                </div>
+
+                <div class="statCard">
+                    🔁 Tekrar
+                    <br>
+                    <b id="tekrar">0</b>
                 </div>
             </div>
 
-            <div class="stat-card">
-                <div class="stat-icon red">❌</div>
-                <div class="stat-info">
-                    <span class="stat-title">Yanlışlar</span>
-                    <b id="yanlis" class="stat-value">0</b>
-                </div>
+            <div class="box">
+                <h2>📌 Menü</h2>
+                <button onclick="git('yanlis-ekle.html')">
+                    ➕ Yeni Soru Ekle
+                </button>
+                <button onclick="git('yanlislarim.html')">
+                    📚 Yanlışlarım
+                </button>
+                <button onclick="git('istatistik.html')">
+                    📊 İstatistik
+                </button>
+                <button onclick="git('program.html')">
+                    📅 Çalışma Programı
+                </button>
+                <button onclick="git('denemeler.html')">
+                    📝 Deneme Takibi
+                </button>
+                <button onclick="git('tekrar.html')">
+                    🔁 Tekrar Merkezi
+                </button>
+                <button onclick="git('pomodoro.html')">
+                    ⏱️ Pomodoro
+                </button>
             </div>
 
-            <div class="stat-card">
-                <div class="stat-icon yellow">⬜</div>
-                <div class="stat-info">
-                    <span class="stat-title">Boşlar</span>
-                    <b id="bos" class="stat-value">0</b>
-                </div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-icon green">🔁</div>
-                <div class="stat-info">
-                    <span class="stat-title">Tekrar Edilen</span>
-                    <b id="tekrar" class="stat-value">0</b>
-                </div>
-            </div>
-        </div>
-
-        <!-- GÜNLÜK GÖREVLER KARTI -->
-        <div class="card-glass">
-            <div class="card-header">
+            <div class="box">
                 <h2>🎯 Günlük Görevler</h2>
-                <button class="btn-action-primary" onclick="gorevEkleAc()">➕ Görev Ekle</button>
+                <p>
+                    Bugünkü çalışma hedeflerini takip et.
+                </p>
+                <button onclick="gorevEkleAc()">
+                    ➕ Yeni Görev Ekle
+                </button>
+
+                <div id="gorevEkleAlan" style="display:none;">
+                    <input id="dersAdi" placeholder="Ders (Matematik, Fizik...)">
+                    <input id="gorevTuru" placeholder="Tür (Soru, Video, Tekrar...)">
+                    <input id="hedefMiktar" placeholder="Hedef sayı/dakika">
+                    <input id="youtubeLink" placeholder="Youtube linki (opsiyonel)">
+                    <button onclick="gorevKaydet()">
+                        💾 Görevi Kaydet
+                    </button>
+                </div>
+
+                <div id="gorevListesi"></div>
             </div>
 
-            <div id="gorevEkleAlan" class="form-drawer" style="display:none;">
-                <input id="dersAdi" type="text" placeholder="Ders (Matematik, Fizik...)">
-                <input id="gorevTuru" type="text" placeholder="Tür (Soru, Video, Tekrar...)">
-                <input id="hedefMiktar" type="text" placeholder="Hedef miktar / Dakika">
-                <input id="youtubeLink" type="text" placeholder="Youtube Ders Linki (Opsiyonel)">
-                <button class="btn-submit" onclick="gorevKaydet()">💾 Görevi Kaydet</button>
-            </div>
-
-            <div id="gorevListesi" class="task-list"></div>
         </div>
 
-        <!-- MOTİVASYON VE DURUM -->
-        <div class="card-glass motivation-box">
-            <span class="badge">PRO MOTİVASYON</span>
-            <h3>🔥 Netlerini Katlama Zamanı</h3>
-            <p>Yanlış yaptığın sorular en büyük rehberindir. Eksiklerini kapat, sınav günü farkını ortaya koy.</p>
+        <div class="box">
+            <h2>🔥 YKS Silkici Durumu</h2>
+            <p>
+                Yanlışlarını azalt,
+                eksiklerini kapat,
+                netlerini yükselt.
+            </p>
         </div>
 
     </div>
 
-</main>
-
-<script src="script.js"></script>
-
-<script>
-// CANLI YKS GERİ SAYIM SİSTEMİ
-function yksGeriSayim() {
-    // YKS Tarihi (Haziran Ortası)
-    const yksTarihi = new Date("June 20, 2027 10:15:00").getTime();
-    const simdi = new Date().getTime();
-    const fark = yksTarihi - simdi;
-
-    if (fark > 0) {
-        const gun = Math.floor(fark / (1000 * 60 * 60 * 24));
-        const saat = Math.floor((fark % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const dakika = Math.floor((fark % (1000 * 60 * 60)) / (1000 * 60));
-        const saniye = Math.floor((fark % (1000 * 60)) / 1000);
-
-        document.getElementById("yksGun").innerText = String(gun).padStart(2, "0");
-        document.getElementById("yksSaat").innerText = String(saat).padStart(2, "0");
-        document.getElementById("yksDakika").innerText = String(dakika).padStart(2, "0");
-        document.getElementById("yksSaniye").innerText = String(saniye).padStart(2, "0");
-    }
-}
-setInterval(yksGeriSayim, 1000);
-yksGeriSayim();
-
-function sekmeDegistir(elem) {
-    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    if(elem) elem.classList.add('active');
-}
-</script>
+    <script src="script.js"></script>
 
 </body>
 
