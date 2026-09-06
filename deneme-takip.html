@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="tr"><head><meta charset="UTF-8"><title>Denemeler</title><link rel="stylesheet" href="style.css"></head>
+<body><div class="container"><div class="box"><h1>📝 Deneme Takibi</h1>
+<input id="ad" placeholder="Deneme adı"><input id="net" placeholder="Net">
+<button onclick="ekle()">Kaydet</button><div id="liste"></div></div></div>
+<script>
+let a=JSON.parse(localStorage.getItem("denemeler")||"[]");
+function g(){liste.innerHTML=a.map((x,i)=>`<div class=box>${x.ad} - ${x.net} net <button onclick="s(${i})">🗑</button></div>`).join("")}
+function ekle(){a.push({ad:ad.value,net:net.value});localStorage.setItem("denemeler",JSON.stringify(a));g()}
+function s(i){a.splice(i,1);localStorage.setItem("denemeler",JSON.stringify(a));g()}g()
+</script></body></html>
