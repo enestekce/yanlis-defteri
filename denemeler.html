@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="tr"><head><meta charset="UTF-8"><title>Deneme Takip</title><link rel="stylesheet" href="style.css"></head>
+<body><div class="container"><div class="box"><h1>📊 Deneme Takip</h1>
+<input id="ad" placeholder="Deneme adı"><input id="net" placeholder="Net"><button onclick="ekle()">Kaydet</button><div id="liste"></div></div></div>
+<script>
+let d=JSON.parse(localStorage.getItem("denemeler"))||[];
+function ekle(){d.push({a:ad.value,n:net.value});localStorage.setItem("denemeler",JSON.stringify(d));goster()}
+function goster(){liste.innerHTML=d.map(x=>`<div class="box">${x.a} - ${x.n} net</div>`).join("")}
+goster()
+</script></body></html>

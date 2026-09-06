@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YKS Silkici - Program</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>📅 Çalışma Programı</h1>
+
+<p class="subtitle">
+Hedeflerini planla, geçmişini takip et.
+</p>
+
+
+
+
+<div class="box">
+
+<h2>📆 Tarih</h2>
+
+<p id="tarih"></p>
+
+</div>
+
+
+
+
+
+<div class="box">
+
+<h2>🎯 Günlük Hedef</h2>
+
+<p>
+Bugünkü hedefini belirle ve kaydet.
+</p>
+
+
+<button onclick="hedefAc()">
+
+🎯 Hedef Belirle
+
+</button>
+
+
+<div id="hedefAlan" style="display:none;">
+
+
+<textarea 
+id="gunlukHedef"
+placeholder="Bugün ne yapacağım?">
+</textarea>
+
+
+<button onclick="hedefKaydet()">
+
+💾 Kaydet
+
+</button>
+
+
+</div>
+
+
+<p id="hedefMesaj"></p>
+
+
+</div>
+
+
+
+
+
+
+<div class="box">
+
+
+<h2>📚 Haftalık Çizelge</h2>
+
+
+<div id="hafta"></div>
+
+
+
+<button onclick="programKaydet()">
+
+💾 Bu Haftayı Kaydet
+
+</button>
+
+
+<p id="programMesaj"></p>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="box">
+
+
+<h2>🗂️ Geçmiş Programlar</h2>
+
+
+<div id="gecmis"></div>
+
+
+</div>
+
+
+
+
+
+<button onclick="window.location.href='index.html'">
+
+🏠 Ana Sayfa
+
+</button>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<script src="script.js"></script>
+
+
+
+<script>
+
+
+let gunler=[
+
+"Pazartesi",
+"Salı",
+"Çarşamba",
+"Perşembe",
+"Cuma",
+"Cumartesi",
+"Pazar"
+
+];
+
+
+
+
+
+function tarihGoster(){
+
+
+let simdi=new Date();
+
+
+document.getElementById("tarih").innerHTML=
+
+simdi.toLocaleDateString("tr-TR");
+
+
+}
+
+
+
+
+
+
+function programOlustur(){
+
+
+let alan=document.getElementById("hafta");
+
+
+let mevcut=
+
+JSON.parse(localStorage.getItem("aktifProgram")) || {};
+
+
+
+alan.innerHTML="";
+
+
+
+gunler.forEach(function(gun){
+
+
+alan.innerHTML += `
+
+
+<div class="card">
+
+
+<h3>📌 ${gun}</h3>
+
+
+<textarea
+
+id="${gun}"
+
+placeholder="${gun} hedefi...">
+
+${mevcut[gun] || ""}
+
+</textarea>
+
+
+</div>
+
+
+`;
+
+
+});
+
+
+
+
+
+
+let eskiHedef=
+
+localStorage.getItem("gunlukHedef") || "";
+
+
+
+document.getElementById("gunlukHedef").value=
+
+eskiHedef;
+
+
+
+}
+
+
+
+
+
+
+
+function hedefKaydet(){
+
+let hedef =
+document.getElementById("gunlukHedef").value.trim();
+
+
+if(hedef==""){
+
+document.getElementById("hedefMesaj").innerHTML =
+"⚠️ Henüz günlük hedef girilmedi";
+
+return;
+
+}
+
+
+localStorage.setItem(
+"gunlukHedef",
+hedef
+);
+
+
+document.getElementById("hedefMesaj").innerHTML =
+"✅ Günlük hedef kaydedildi";
+
+
+}
+
+
+
+
+
+
+
+
+
+
+function programKaydet(){
+
+
+
+let program={};
+
+
+
+gunler.forEach(function(gun){
+
+
+program[gun]=
+
+document.getElementById(gun).value;
+
+
+});
+
+
+
+
+
+
+localStorage.setItem(
+
+"aktifProgram",
+
+JSON.stringify(program)
+
+);
+
+
+
+
+
+
+let gecmis=
+
+JSON.parse(localStorage.getItem("programGecmisi")) || [];
+
+
+
+
+
+let kayit={
+
+
+tarih:
+
+new Date().toLocaleDateString("tr-TR"),
+
+
+program:program
+
+
+};
+
+
+
+
+
+gecmis.unshift(kayit);
+
+
+
+
+
+localStorage.setItem(
+
+"programGecmisi",
+
+JSON.stringify(gecmis)
+
+);
+
+
+
+
+
+gecmisGoster();
+
+
+
+document.getElementById("programMesaj").innerHTML=
+
+"✅ Haftalık program kaydedildi";
+
+
+}
+
+
+
+
+
+
+
+
+
+function gecmisGoster(){
+
+
+
+let alan=
+
+document.getElementById("gecmis");
+
+
+
+let liste=
+
+JSON.parse(localStorage.getItem("programGecmisi")) || [];
+
+
+
+alan.innerHTML="";
+
+
+
+
+
+if(liste.length==0){
+
+
+alan.innerHTML=
+
+"Henüz kayıt yok.";
+
+
+return;
+
+
+}
+
+
+
+
+
+
+
+liste.forEach(function(x,index){
+
+
+
+alan.innerHTML += `
+
+
+
+<div class="card">
+
+
+<h3>📅 ${x.tarih}</h3>
+
+
+
+${gunler.map(gun=>
+
+
+`
+
+<p>
+
+<b>${gun}:</b>
+
+${x.program[gun] || "-"}
+
+</p>
+
+`
+
+).join("")}
+
+
+
+
+<button onclick="programSil(${index})">
+
+🗑️ Kaydı Sil
+
+</button>
+
+
+
+</div>
+
+
+
+`;
+
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+
+function programSil(index){
+
+
+let liste=
+
+JSON.parse(localStorage.getItem("programGecmisi")) || [];
+
+
+
+if(confirm("Bu program silinsin mi?")){
+
+
+liste.splice(index,1);
+
+
+
+localStorage.setItem(
+
+"programGecmisi",
+
+JSON.stringify(liste)
+
+);
+
+
+
+gecmisGoster();
+
+
+}
+
+
+}
+
+
+
+
+
+
+
+tarihGoster();
+
+programOlustur();
+
+gecmisGoster();
+  
+  function hedefAc(){
+
+let alan = document.getElementById("hedefAlan");
+
+if(alan.style.display=="none"){
+
+alan.style.display="block";
+
+}
+else{
+
+alan.style.display="none";
+
+}
+
+}
+
+
+
+</script>
+
+
+</body>
+
+</html>
